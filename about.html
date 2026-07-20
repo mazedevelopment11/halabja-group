@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Halabja Group</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #29457E;
+      --accent-dark: #1a2f58;
+      --red: #D63F32;
+      --black: #0a0e1a;
+      --white: #ffffff;
+      --gray: #6b7280;
+      --gray-light: #f0f2f7;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 6vw;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(41,69,126,0.08);
+      transition: padding 0.3s;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo img { height: 30px; width: auto; }
+    .nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav-logo-name { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+    .nav-logo-sub { font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--black); opacity: 0.55; transition: opacity 0.2s, color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--accent); }
+    .nav-cta { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; background: var(--red); color: white; padding: 10px 22px; transition: background 0.2s; }
+    .nav-cta:hover { background: #b83429; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--black); }
+    @media (max-width: 900px) { .nav-links { display: none; } .hamburger { display: flex; } }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; background: var(--black);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 6vw 80px; position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #0a0e1a 0%, #1a2f58 60%, #29457E 100%);
+    }
+    .hero-bg-grid {
+      position: absolute; inset: 0; opacity: 0.04;
+      background-image: linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-number {
+      position: absolute; right: 6vw; top: 50%; transform: translateY(-50%);
+      font-size: clamp(180px, 25vw, 320px); font-weight: 900;
+      color: rgba(255,255,255,0.03); line-height: 1; pointer-events: none;
+      letter-spacing: -0.05em; user-select: none;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 800px; padding-top: 140px; }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 32px;
+    }
+    .hero-eyebrow-line { width: 40px; height: 1px; background: var(--red); }
+    .hero-eyebrow span { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+    .hero h1 {
+      font-size: clamp(48px, 7vw, 96px); font-weight: 300; color: white;
+      line-height: 1.0; letter-spacing: -0.03em; margin-bottom: 32px;
+    }
+    .hero h1 em { font-style: normal; color: var(--red); }
+    .hero h1 strong { font-weight: 800; display: block; }
+    .hero-desc { font-size: 17px; color: rgba(255,255,255,0.5); line-height: 1.8; max-width: 520px; margin-bottom: 60px; }
+    .hero-scroll-hint {
+      display: flex; align-items: center; gap: 14px;
+      font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.3);
+    }
+    .scroll-line { width: 48px; height: 1px; background: rgba(255,255,255,0.2); position: relative; overflow: hidden; }
+    .scroll-line::after { content: ''; position: absolute; inset: 0; background: white; animation: scrollLine 2s ease-in-out infinite; }
+    @keyframes scrollLine { 0%{transform:translateX(-100%)} 50%{transform:translateX(0)} 100%{transform:translateX(100%)} }
+
+    /* ── STATS ── */
+    .stats-section {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      border-bottom: 1px solid rgba(41,69,126,0.1);
+    }
+    .stat-cell {
+      padding: 56px 40px; border-right: 1px solid rgba(41,69,126,0.1);
+      position: relative; overflow: hidden; cursor: default;
+      transition: background 0.3s;
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-cell:hover { background: #f7f9ff; }
+    .stat-cell::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+      background: var(--red); transform: scaleY(0); transform-origin: bottom;
+      transition: transform 0.4s;
+    }
+    .stat-cell:hover::before { transform: scaleY(1); }
+    .stat-num {
+      font-size: clamp(44px,5vw,64px); font-weight: 800; color: var(--accent);
+      line-height: 1; letter-spacing: -0.03em;
+    }
+    .stat-num .stat-suffix { font-size: 0.5em; vertical-align: super; font-weight: 400; }
+    .stat-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); margin-top: 8px; }
+    @media (max-width: 700px) { .stats-section { grid-template-columns: 1fr 1fr; } .stat-cell { border-bottom: 1px solid rgba(41,69,126,0.1); } }
+
+    /* ── CHAIRMAN ── */
+    .chairman-section { padding: 120px 6vw; overflow: hidden; }
+    .chairman-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start; max-width: 1280px; margin: 0 auto; }
+
+    /* Left — sticky photo */
+    .chairman-photo-col { position: sticky; top: 100px; }
+    .chairman-photo-frame {
+      position: relative;
+    }
+    .chairman-photo-frame::before {
+      content: ''; position: absolute;
+      top: 24px; left: 24px; right: -24px; bottom: -24px;
+      border: 1px solid rgba(41,69,126,0.15); z-index: 0;
+    }
+    .chairman-photo-img {
+      position: relative; z-index: 1;
+      aspect-ratio: 3/4; overflow: hidden; background: var(--gray-light);
+    }
+    .chairman-photo-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+    .chairman-nameplate {
+      position: relative; z-index: 1;
+      background: var(--accent); padding: 24px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 2px;
+    }
+    .chairman-nameplate-name { font-size: 20px; font-weight: 700; color: white; }
+    .chairman-nameplate-role { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 3px; }
+    .chairman-nameplate-icon { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; }
+    .chairman-nameplate-icon img { height: 22px; filter: brightness(0) invert(1); }
+
+    /* Right — text */
+    .chairman-text-col { padding-top: 8px; }
+    .section-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .section-eyebrow-line { width: 32px; height: 1px; background: var(--red); }
+    .section-eyebrow span { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); }
+    .section-heading { font-size: clamp(32px,4vw,52px); font-weight: 300; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 40px; }
+    .section-heading strong { font-weight: 800; display: block; }
+    .chairman-body p { font-size: 16px; line-height: 1.9; color: #444; margin-bottom: 24px; }
+    .chairman-quote-block {
+      margin: 48px 0; padding: 40px 48px; background: var(--black);
+      position: relative; overflow: hidden;
+    }
+    .chairman-quote-block::before {
+      content: '\201C'; font-size: 160px; font-family: Georgia, serif;
+      color: var(--red); opacity: 0.15; position: absolute;
+      top: -20px; left: 20px; line-height: 1; pointer-events: none;
+    }
+    .chairman-quote-block blockquote {
+      font-size: 17px; line-height: 1.85; color: rgba(255,255,255,0.85);
+      font-style: italic; position: relative; z-index: 1;
+      margin-bottom: 20px;
+    }
+    .chairman-quote-block cite { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); font-style: normal; display: block; }
+
+    @media (max-width: 960px) {
+      .chairman-inner { grid-template-columns: 1fr; gap: 56px; }
+      .chairman-photo-col { position: static; }
+      .chairman-photo-img { max-width: 360px; }
+      .chairman-photo-frame::before { display: none; }
+    }
+
+    /* ── TIMELINE ── */
+    .timeline-section { background: var(--black); padding: 120px 0; overflow: hidden; }
+    .timeline-header { padding: 0 6vw; margin-bottom: 80px; display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; }
+    .timeline-count { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+
+    /* Horizontal scroll timeline */
+    .timeline-scroll-wrap { overflow-x: auto; overflow-y: visible; padding: 0 6vw 40px; cursor: grab; user-select: none; }
+    .timeline-scroll-wrap:active { cursor: grabbing; }
+    .timeline-scroll-wrap::-webkit-scrollbar { height: 2px; }
+    .timeline-scroll-wrap::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+    .timeline-scroll-wrap::-webkit-scrollbar-thumb { background: var(--accent); }
+    .timeline-track { display: flex; gap: 0; position: relative; width: max-content; }
+    .timeline-track::before {
+      content: ''; position: absolute; top: 120px; left: 0; right: 0; height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+    .timeline-card {
+      width: 260px; flex-shrink: 0; padding: 0 24px 0 0; position: relative;
+    }
+    .tl-year-row { height: 120px; display: flex; align-items: flex-end; padding-bottom: 28px; }
+    .tl-year {
+      font-size: 42px; font-weight: 800; color: rgba(255,255,255,0.07);
+      letter-spacing: -0.03em; transition: color 0.3s;
+    }
+    .timeline-card:hover .tl-year { color: rgba(255,255,255,0.2); }
+    .tl-dot-row { display: flex; align-items: center; margin-bottom: 28px; }
+    .tl-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.2);
+      flex-shrink: 0; transition: background 0.3s, border-color 0.3s, transform 0.3s;
+    }
+    .timeline-card:hover .tl-dot { background: var(--red); border-color: var(--red); transform: scale(1.4); }
+    .tl-logo {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px; overflow: hidden;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .timeline-card:hover .tl-logo { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.15); }
+    .tl-logo img { max-width: 34px; max-height: 34px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.6; }
+    .tl-name { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.8); line-height: 1.4; margin-bottom: 6px; }
+    .tl-desc { font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 0.04em; }
+    .timeline-drag-hint { padding: 0 6vw; margin-top: 16px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); display: flex; align-items: center; gap: 10px; }
+    .timeline-drag-hint::before { content: ''; display: block; width: 24px; height: 1px; background: rgba(255,255,255,0.15); }
+
+    /* ── VALUES ── */
+    .values-section { padding: 120px 6vw; }
+    .values-inner { max-width: 1280px; margin: 0 auto; }
+    .values-header-row { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; margin-bottom: 72px; }
+    .values-header-desc { font-size: 16px; color: var(--gray); line-height: 1.8; }
+    .values-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; }
+    .value-card {
+      padding: 48px 36px; background: var(--gray-light);
+      position: relative; overflow: hidden; transition: background 0.3s;
+      cursor: default;
+    }
+    .value-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: var(--accent); transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.76,0,0.24,1);
+    }
+    .value-card:hover::after { transform: translateY(0); }
+    .value-card-inner { position: relative; z-index: 1; }
+    .value-num { font-size: 11px; letter-spacing: 0.12em; color: var(--gray); margin-bottom: 40px; display: block; transition: color 0.3s; }
+    .value-card:hover .value-num { color: rgba(255,255,255,0.4); }
+    .value-icon { font-size: 32px; margin-bottom: 20px; display: block; }
+    .value-name { font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 12px; transition: color 0.3s; }
+    .value-card:hover .value-name { color: white; }
+    .value-desc { font-size: 14px; color: var(--gray); line-height: 1.7; transition: color 0.3s; }
+    .value-card:hover .value-desc { color: rgba(255,255,255,0.7); }
+    @media (max-width: 900px) { .values-grid { grid-template-columns: 1fr 1fr; } .values-header-row { grid-template-columns: 1fr; gap: 24px; } }
+    @media (max-width: 500px) { .values-grid { grid-template-columns: 1fr; } }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--accent); padding: 100px 6vw;
+      display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center;
+    }
+    .cta-section h2 { font-size: clamp(28px,4vw,52px); font-weight: 300; color: white; letter-spacing: -0.02em; }
+    .cta-section h2 strong { font-weight: 800; }
+    .cta-section p { font-size: 16px; color: rgba(255,255,255,0.55); margin-top: 12px; }
+    .btn-outline-white { display: inline-flex; align-items: center; gap: 12px; padding: 18px 36px; border: 1px solid rgba(255,255,255,0.4); color: white; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; font-weight: 600; white-space: nowrap; transition: background 0.2s, border-color 0.2s; }
+    .btn-outline-white:hover { background: var(--red); border-color: var(--red); }
+    @media (max-width: 700px) { .cta-section { grid-template-columns: 1fr; } }
+
+    /* ── FOOTER ── */
+    .page-footer { background: white; padding: 28px 6vw; border-top: 1px solid var(--gray-light); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .page-footer p { font-size: 12px; color: rgba(41,69,126,0.4); }
+    .page-footer a { text-decoration: none; color: var(--accent); font-size: 12px; transition: color 0.2s; }
+    .page-footer a:hover { color: var(--red); }
+
+    /* ── ANIMATIONS ── */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logos/halabja-logo-blue.svg" alt="Halabja Group" />
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Halabja Group</span>
+      <span class="nav-logo-sub">Trust the Expertise</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="index.html#companies">Companies</a></li>
+    <li><a href="index.html#news">News</a></li>
+    <li><a href="index.html#branches">Branches</a></li>
+  </ul>
+  <a href="careers.html" class="nav-cta">Careers</a>
+  <button class="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-bg-grid"></div>
+  <div class="hero-number">35</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow reveal">
+      <div class="hero-eyebrow-line"></div>
+      <span>Halabja Group · Est. 1980s</span>
+    </div>
+    <h1 class="reveal delay-1">
+      Built on<br>Trust.<br><strong><em>Driven</em> by<br>Expertise.</strong>
+    </h1>
+    <p class="hero-desc reveal delay-2">A diversified enterprise spanning eight sectors and four countries — committed to the reconstruction and development of Kurdistan and Iraq.</p>
+    <div class="hero-scroll-hint reveal delay-3">
+      <div class="scroll-line"></div>
+      <span>Scroll to explore</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stat-cell reveal">
+    <div class="stat-num"><span class="count" data-target="35">0</span><span class="stat-suffix">+</span></div>
+    <div class="stat-label">Years Active</div>
+  </div>
+  <div class="stat-cell reveal delay-1">
+    <div class="stat-num"><span class="count" data-target="8">0</span></div>
+    <div class="stat-label">Sectors</div>
+  </div>
+  <div class="stat-cell reveal delay-2">
+    <div class="stat-num"><span class="count" data-target="500">0</span><span class="stat-suffix">+</span></div>
+    <div class="stat-label">Employees</div>
+  </div>
+  <div class="stat-cell reveal delay-3">
+    <div class="stat-num"><span class="count" data-target="4">0</span></div>
+    <div class="stat-label">Countries</div>
+  </div>
+</div>
+
+<!-- CHAIRMAN -->
+<section class="chairman-section">
+  <div class="chairman-inner">
+    <div class="chairman-photo-col reveal-left">
+      <div class="chairman-photo-frame">
+        <div class="chairman-photo-img">
+          <img src="assets/chairman.jpg" alt="Aso Bamoki — Chairman, Halabja Group" />
+        </div>
+        <div class="chairman-nameplate">
+          <div>
+            <div class="chairman-nameplate-name">Aso Bamoki</div>
+            <div class="chairman-nameplate-role">Chairman, Halabja Group</div>
+          </div>
+          <div class="chairman-nameplate-icon">
+            <img src="logos/halabja-logo-white.svg" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="chairman-text-col reveal-right">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-line"></div>
+        <span>Chairman's Message</span>
+      </div>
+      <h2 class="section-heading">A word from<br><strong>Aso Bamoki</strong></h2>
+      <div class="chairman-body">
+        <p>Over the past few decades, Iraq has faced considerable instability and enduring political and economic challenges, which have profoundly impacted the nation's development across all spheres of life. As an esteemed entity, we take great pride in being part of the ongoing efforts for the reconstruction and restoration of Kurdistan and Iraq, following prolonged periods of instability and devastation.</p>
+        <p>Our journey originated with the establishment of Halabja Group for Trading in the late 1980s. Since then, driven by unwavering dedication, we have expanded our scope beyond the trading sector, venturing into a diverse range of industries — spanning the industrial, construction, real estate, telecommunication, education, and retail sectors, all unified under the banner of Halabja Group.</p>
+        <p>At the heart of our mission lies an unwavering commitment to serving our customers and stakeholders with utmost dedication and fidelity, while consistently elevating the quality of our products to meet the highest standards. We firmly believe that knowledge serves as the key to greater success, building trust among the people, and propelling the country's development in the most efficient and effective manner.</p>
+        <div class="chairman-quote-block">
+          <blockquote>"Our goal is to be a trusted provider of services and businesses that support the country's economic growth and development. By providing cutting-edge technology, creating job opportunities, and supporting local talent, we intend to leverage our expertise, resources, and strengths to improve the lives of citizens."</blockquote>
+          <cite>— Aso Bamoki, Chairman · Halabja Group</cite>
+        </div>
+        <p>Our overarching vision is to contribute to a better country, thriving on sustainable progress and lasting prosperity — for both current and future generations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="timeline-header">
+    <div>
+      <div class="section-eyebrow reveal">
+        <div class="section-eyebrow-line" style="background:rgba(255,255,255,0.3)"></div>
+        <span style="color:rgba(255,255,255,0.4)">Our Journey</span>
+      </div>
+      <h2 class="section-heading reveal delay-1" style="color:white;">Milestones &amp;<br><strong>Subsidiaries</strong></h2>
+    </div>
+    <div class="timeline-count reveal">12 companies · drag to explore →</div>
+  </div>
+  <div class="timeline-scroll-wrap" id="tlScroll">
+    <div class="timeline-track">
+
+      <div class="timeline-card">
+        <div class="tl-year-row"><div class="tl-year">1992</div></div>
+        <div class="tl-dot-row"><div class="tl-dot"></div></div>
+        <div class="tl-logo"><img src="logos/partner-logo-1.svg" alt="" /></div>
+        <div class="tl-name">Halabja Trading</div>
+        <div class="tl-desc">Trading sector · founding company</div>
+      </div>
+
+      <div class="timeline-card">
+        <div class="tl-year-row"><div class="tl-year">1998</div></div>
+        <div class="tl-dot-row"><div class="tl-dot"></div></div>
+        <div class="tl-logo"><img src="logos/partner-logo-2.svg" alt="" /></div>
+        <div class="tl-name">Halabja for General Contracting</div>
+        <div class="tl-desc">Construction & industrial</div>
+      </div>
+
+      <div class="timeline-card">
+        <div class="tl-year-row"><div class="tl-year">2007</div></div>
+        <div class="tl-dot-row"><div class="tl-dot"></div></div>
+        <div class="tl-logo"><img src="logos/partner-logo-3.svg" alt="" /></div>
+        <div class="tl-name">Aran Asphalt</div>
+        <div class="tl-desc">Road construction & asphalt</div>
+      </div>
+
+      <div class="timeline-card">
+        <div class="tl-year-row"><div class="tl-year">2007</div></div>
+        <div class="tl-dot-row"><div class="tl-dot"></div></div>
+        <div class="tl-logo"><img src="logos/bayan-real-estate.svg" alt="" /></div>
+        <div class="tl-name">Bayan Real Estate</div>
+        <div class="tl-desc">Real estate development</div>
+      </div>
+
+      <div class="timeline-card">
+        <div class="tl-year-row"><div class="tl-year">2010</div></div>
+        <div class="tl-dot-row"><div class="tl-dot"></div></div>
+        <div class="tl-logo"><img src="logos/partner-logo-5.svg" alt="" /></div>
+        <div class="tl-name">Halabja Concrete Factory</div>
+        <div class="tl-desc">Concrete & building materials</div>
+      </div>
+
+      <div class="timeline-card">
+        <div class="tl-year-row"><div class="tl-year">2012</div></div>
+        <div class="tl-dot-row"><div class="tl-dot"></div></div>
+        <div class="tl-logo"><img src="logos/partner-logo-6.svg" alt="" /></div>
+        <div class="tl-name">Halabja Telecom Services</div>
+        <div class="tl-desc">Telecommunications sector</div>
+      </div>
+
+      <div class="timeline-card">
+        <div class="tl-year-row"><div class="tl-year">2018</div></div>
+        <div class="tl-dot-row"><div class="tl-dot"></div></div>
+        <div class="tl-logo"><img src="logos/partner-logo-7.svg" alt="" /></div>
+        <div class="tl-name">Rasan Olive Oil</div>
+        <div class="tl-desc">Food industry & agriculture</div>
+      </div>
+
+      <div class="timeline-card">
+        <div class="tl-year-row"><div class="tl-year">2019</div></div>
+        <div class="tl-dot-row"><div class="tl-dot"></div></div>
+        <div class="tl-logo"><img src="logos/komar-montessori.png" alt="" /></div>
+        <div class="tl-name">International Montessori Nursery, Kindergarten and School</div>
+        <div class="tl-desc">Education sector</div>
+      </div>
+
+      <div class="timeline-card">
+        <div class="tl-year-row"><div class="tl-year">2021</div></div>
+        <div class="tl-dot-row"><div class="tl-dot"></div></div>
+        <div class="tl-logo"><img src="logos/real-estate-investment.svg" alt="" /></div>
+        <div class="tl-name">Halabja Real Estate Investment</div>
+        <div class="tl-desc">Real estate investment</div>
+      </div>
+
+      <div class="timeline-card">
+        <div class="tl-year-row"><div class="tl-year">2021</div></div>
+        <div class="tl-dot-row"><div class="tl-dot"></div></div>
+        <div class="tl-logo"><img src="logos/partner-logo-9.svg" alt="" /></div>
+        <div class="tl-name">Hilal Brick</div>
+        <div class="tl-desc">Construction materials</div>
+      </div>
+
+      <div class="timeline-card">
+        <div class="tl-year-row"><div class="tl-year">2021</div></div>
+        <div class="tl-dot-row"><div class="tl-dot"></div></div>
+        <div class="tl-logo"><img src="logos/partner-logo-10.svg" alt="" /></div>
+        <div class="tl-name">Rasan Animal Farm</div>
+        <div class="tl-desc">Agriculture & food production</div>
+      </div>
+
+      <div class="timeline-card">
+        <div class="tl-year-row"><div class="tl-year">2022</div></div>
+        <div class="tl-dot-row"><div class="tl-dot"></div></div>
+        <div class="tl-logo"><img src="logos/partner-logo-11.svg" alt="" /></div>
+        <div class="tl-name">Ishtar Brick Factory</div>
+        <div class="tl-desc">Construction materials</div>
+      </div>
+
+    </div>
+  </div>
+  <div class="timeline-drag-hint">Drag to scroll</div>
+</section>
+
+<!-- VALUES -->
+<section class="values-section">
+  <div class="values-inner">
+    <div class="values-header-row">
+      <div class="reveal-left">
+        <div class="section-eyebrow" style="margin-bottom:20px">
+          <div class="section-eyebrow-line"></div>
+          <span>Our Foundation</span>
+        </div>
+        <h2 class="section-heading">What We<br><strong>Stand For</strong></h2>
+      </div>
+      <p class="values-header-desc reveal-right">Our values are not words on a wall — they are the principles that guide every decision, every project, and every relationship we build across our eight sectors.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <div class="value-card-inner">
+          <span class="value-num">01</span>
+          <span class="value-icon">◆</span>
+          <div class="value-name">Integrity</div>
+          <div class="value-desc">Transparent dealings and unwavering commitment to every promise made to our clients and partners.</div>
+        </div>
+      </div>
+      <div class="value-card reveal delay-1">
+        <div class="value-card-inner">
+          <span class="value-num">02</span>
+          <span class="value-icon">◈</span>
+          <div class="value-name">Excellence</div>
+          <div class="value-desc">Consistently elevating the quality of our products and services to meet the highest standards.</div>
+        </div>
+      </div>
+      <div class="value-card reveal delay-2">
+        <div class="value-card-inner">
+          <span class="value-num">03</span>
+          <span class="value-icon">◉</span>
+          <div class="value-name">Sustainability</div>
+          <div class="value-desc">Building for the long term — for our clients, our communities, and our environment.</div>
+        </div>
+      </div>
+      <div class="value-card reveal delay-3">
+        <div class="value-card-inner">
+          <span class="value-num">04</span>
+          <span class="value-icon">◐</span>
+          <div class="value-name">Community</div>
+          <div class="value-desc">Supporting local talent and generating ample job opportunities for our fellow citizens.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="reveal">
+    <h2>Join the<br><strong>Halabja Group</strong> team</h2>
+    <p>We are always looking for talented, driven individuals to grow with us.</p>
+  </div>
+  <a href="careers.html" class="btn-outline-white reveal delay-1">View Open Positions →</a>
+</section>
+
+<!-- FOOTER -->
+<div class="page-footer">
+  <a href="index.html" class="nav-logo" style="text-decoration:none;">
+    <img src="logos/halabja-logo-blue.svg" style="height:26px;" alt="" />
+    <div class="nav-logo-text">
+      <span class="nav-logo-name" style="color:#29457E;font-size:12px;">Halabja Group</span>
+      <span class="nav-logo-sub" style="color:rgba(41,69,126,0.5);">Trust the Expertise</span>
+    </div>
+  </a>
+  <p>© 2026 Halabja Group. All rights reserved.</p>
+  <a href="index.html">← Back to main site</a>
+</div>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+
+  // Animated counters
+  const countObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = +el.dataset.target;
+      const duration = 1400;
+      const start = performance.now();
+      const update = now => {
+        const p = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(ease * target);
+        if (p < 1) requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+      countObserver.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.count').forEach(el => countObserver.observe(el));
+
+  // Drag-to-scroll timeline
+  const tl = document.getElementById('tlScroll');
+  let isDown = false, startX, scrollLeft;
+  tl.addEventListener('mousedown', e => { isDown = true; tl.classList.add('active'); startX = e.pageX - tl.offsetLeft; scrollLeft = tl.scrollLeft; });
+  tl.addEventListener('mouseleave', () => { isDown = false; });
+  tl.addEventListener('mouseup', () => { isDown = false; });
+  tl.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - tl.offsetLeft; tl.scrollLeft = scrollLeft - (x - startX) * 1.5; });
+</script>
+</body>
+</html>
