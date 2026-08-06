@@ -70,38 +70,76 @@
   .filter-btn.active { color: var(--red); border-color: var(--red); }
 
   /* COMPANIES GRID */
-  .companies-section { padding: var(--section-pad) 6vw; }
+  .companies-section { padding: var(--section-pad) 6vw; background: #f4f6fa; }
   .sector-group { margin-bottom: 80px; }
   .sector-label {
     font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--red); margin-bottom: 32px; display: flex; align-items: center; gap: 16px;
+    color: var(--accent); margin-bottom: 32px; display: flex; align-items: center; gap: 16px;
   }
-  .sector-label::after { content: ''; flex: 1; height: 1px; background: var(--gray-light); }
+  .sector-label span { background: var(--red); color: #fff; padding: 4px 14px; border-radius: 2px; }
+  .sector-label::after { content: ''; flex: 1; height: 1px; background: rgba(13,31,61,0.12); }
   .companies-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2px;
   }
+
+  /* Card */
   .company-card {
-    border: 1px solid var(--gray-light); border-radius: 4px; padding: 32px;
-    display: flex; flex-direction: column; gap: 24px;
-    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-    background: var(--white);
+    background: var(--accent);
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(.22,.68,0,1.2);
   }
-  .company-card:hover { border-color: var(--accent); box-shadow: 0 8px 32px rgba(13,31,61,0.1); transform: translateY(-4px); }
-  .company-logo-wrap {
-    height: 80px; display: flex; align-items: center;
-    border-bottom: 1px solid var(--gray-light); padding-bottom: 24px;
+  .company-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--red); transform: scaleY(0); transform-origin: bottom;
+    transition: transform 0.3s ease;
   }
-  .company-logo-wrap img { max-height: 60px; max-width: 160px; object-fit: contain; opacity: 0.85; }
-  .company-logo-wrap .company-logo-name {
-    font-size: 18px; font-weight: 800; color: var(--accent); letter-spacing: -0.01em;
+  .company-card:hover { transform: translateY(-6px); z-index: 2; }
+  .company-card:hover::before { transform: scaleY(1); }
+
+  /* Logo panel */
+  .card-logo-panel {
+    padding: 36px 32px 28px;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 130px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    position: relative;
   }
+  .card-logo-panel img {
+    max-height: 54px; max-width: 150px; object-fit: contain;
+    filter: brightness(0) invert(1); opacity: 0.9;
+    transition: opacity 0.2s, transform 0.3s;
+  }
+  .company-card:hover .card-logo-panel img { opacity: 1; transform: scale(1.06); }
+  .card-logo-name {
+    font-size: 20px; font-weight: 900; color: #fff; letter-spacing: -0.01em; text-align: center;
+  }
+
+  /* Info panel */
+  .card-info { padding: 24px 32px 32px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
   .company-sector-tag {
-    display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--red); background: rgba(214,63,50,0.08);
-    padding: 4px 10px; border-radius: 2px; margin-bottom: 4px;
+    display: inline-block; font-size: 8px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--red);
+    border: 1px solid rgba(214,63,50,0.4); padding: 3px 10px; border-radius: 2px;
+    width: fit-content;
   }
-  .company-name { font-size: 17px; font-weight: 700; color: var(--black); margin-bottom: 10px; }
-  .company-desc { font-size: 14px; line-height: 1.75; color: rgba(15,25,35,0.6); }
+  .company-name { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.3; }
+  .company-desc {
+    font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.5);
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+    opacity: 0;
+  }
+  .company-card:hover .company-desc { max-height: 200px; opacity: 1; }
+  .card-arrow {
+    display: flex; align-items: center; gap: 6px; margin-top: 12px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--red); opacity: 0; transform: translateY(6px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .card-arrow::after { content: '→'; }
+  .company-card:hover .card-arrow { opacity: 1; transform: translateY(0); }
 
   /* FOOTER */
   footer { background: var(--accent); padding: 40px 6vw; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
@@ -160,46 +198,51 @@
 
   <!-- CONSTRUCTION -->
   <div class="sector-group fade-up" data-sector-group="construction">
-    <div class="sector-label">Construction &amp; Industrial</div>
+    <div class="sector-label"><span>Construction &amp; Industrial</span></div>
     <div class="companies-grid">
       <div class="company-card" data-sector="construction">
-        <div class="company-logo-wrap"><img src="logos/partner-logo-1.svg" alt="Halabja for General Contracting"/></div>
-        <div>
+        <div class="card-logo-panel"><img src="logos/partner-logo-1.svg" alt="Halabja for General Contracting"/></div>
+        <div class="card-info">
           <div class="company-sector-tag">Construction</div>
           <div class="company-name">Halabja for General Contracting</div>
           <div class="company-desc">Established in 1998, Halabja for General Contracting is one of Kurdistan's most trusted civil engineering firms. The company specializes in large-scale infrastructure projects including roads, bridges, and public buildings. With a skilled workforce of over 300 engineers and technicians, it has delivered more than 80 projects across the region. Its commitment to quality and timely delivery makes it a preferred partner for government and private clients alike.</div>
+          <div class="card-arrow">Learn More</div>
         </div>
       </div>
       <div class="company-card" data-sector="construction">
-        <div class="company-logo-wrap"><img src="logos/partner-logo-2.svg" alt="Aran Asphalt"/></div>
-        <div>
+        <div class="card-logo-panel"><img src="logos/partner-logo-2.svg" alt="Aran Asphalt"/></div>
+        <div class="card-info">
           <div class="company-sector-tag">Construction</div>
           <div class="company-name">Aran Asphalt</div>
           <div class="company-desc">Aran Asphalt, founded in 2007, is the leading asphalt production and road-paving company in the Kurdistan Region. It operates state-of-the-art mixing plants capable of producing thousands of tons of high-grade asphalt daily. The company has paved hundreds of kilometers of roads under contracts with both regional and federal authorities. Aran Asphalt's technical expertise ensures superior road quality that withstands the region's demanding climate conditions.</div>
+          <div class="card-arrow">Learn More</div>
         </div>
       </div>
       <div class="company-card" data-sector="construction">
-        <div class="company-logo-wrap"><img src="logos/partner-logo-3.svg" alt="Halabja Concrete Factory"/></div>
-        <div>
+        <div class="card-logo-panel"><img src="logos/partner-logo-3.svg" alt="Halabja Concrete Factory"/></div>
+        <div class="card-info">
           <div class="company-sector-tag">Construction</div>
           <div class="company-name">Halabja Concrete Factory</div>
           <div class="company-desc">Halabja Concrete Factory has been supplying premium-grade ready-mix concrete to construction sites across Kurdistan since 2010. The plant is equipped with modern batching systems that ensure consistent quality and precise mixing ratios for every pour. It serves residential, commercial, and infrastructure clients with a fleet of transit mixer trucks for on-time delivery. The factory's rigorous quality control process meets international standards for structural concrete.</div>
+          <div class="card-arrow">Learn More</div>
         </div>
       </div>
       <div class="company-card" data-sector="construction">
-        <div class="company-logo-wrap"><img src="logos/partner-logo-4.svg" alt="Hilal Brick"/></div>
-        <div>
+        <div class="card-logo-panel"><img src="logos/partner-logo-4.svg" alt="Hilal Brick"/></div>
+        <div class="card-info">
           <div class="company-sector-tag">Construction</div>
           <div class="company-name">Hilal Brick</div>
           <div class="company-desc">Hilal Brick, established in 2021, manufactures high-density clay bricks and hollow blocks for the construction industry. Its modern kiln facility produces millions of bricks annually, meeting the growing demand for durable building materials across Iraq. The company employs advanced firing techniques that result in superior strength, thermal insulation, and weather resistance. Hilal Brick supplies contractors, developers, and individual builders throughout the region.</div>
+          <div class="card-arrow">Learn More</div>
         </div>
       </div>
       <div class="company-card" data-sector="construction">
-        <div class="company-logo-wrap"><img src="logos/partner-logo-5.svg" alt="Ishtar Brick Factory"/></div>
-        <div>
+        <div class="card-logo-panel"><img src="logos/partner-logo-5.svg" alt="Ishtar Brick Factory"/></div>
+        <div class="card-info">
           <div class="company-sector-tag">Construction</div>
           <div class="company-name">Ishtar Brick Factory</div>
           <div class="company-desc">Ishtar Brick Factory, launched in 2022, is Halabja Group's newest manufacturing venture, producing a full range of structural and decorative bricks. Located strategically near major construction corridors, it offers rapid delivery to active project sites. The factory applies eco-conscious production practices to minimize waste and energy consumption in every production cycle. Ishtar Brick is rapidly becoming a key supplier for large housing and commercial developments in the Kurdistan Region.</div>
+          <div class="card-arrow">Learn More</div>
         </div>
       </div>
     </div>
@@ -207,22 +250,24 @@
 
   <!-- ENERGY -->
   <div class="sector-group fade-up" data-sector-group="energy">
-    <div class="sector-label">Energy &amp; Petroleum</div>
+    <div class="sector-label"><span>Energy &amp; Petroleum</span></div>
     <div class="companies-grid">
       <div class="company-card" data-sector="energy">
-        <div class="company-logo-wrap"><img src="logos/partner-logo-6.svg" alt="Halabja Energy"/></div>
-        <div>
+        <div class="card-logo-panel"><img src="logos/partner-logo-6.svg" alt="Halabja Energy"/></div>
+        <div class="card-info">
           <div class="company-sector-tag">Energy</div>
           <div class="company-name">Halabja Energy</div>
           <div class="company-desc">Halabja Energy is the group's petroleum and energy arm, engaged in fuel distribution, storage, and related services across the Kurdistan Region. It operates modern fuel depots with high storage capacity to ensure a reliable supply chain for industrial and commercial clients. The company also pursues opportunities in renewable energy and power generation as Iraq transitions toward a diversified energy mix. Halabja Energy is committed to safe, efficient, and environmentally responsible energy operations.</div>
+          <div class="card-arrow">Learn More</div>
         </div>
       </div>
-      <div class="company-card" data-sector="energy">
-        <div class="company-logo-wrap"><img src="logos/partner-logo-7.svg" alt="Halabja Telecom Services"/></div>
-        <div>
+      <div class="company-card" data-sector="services">
+        <div class="card-logo-panel"><img src="logos/partner-logo-7.svg" alt="Halabja Telecom Services"/></div>
+        <div class="card-info">
           <div class="company-sector-tag">Services</div>
           <div class="company-name">Halabja Telecom Services</div>
           <div class="company-desc">Halabja Telecom Services, founded in 2012, provides ICT infrastructure, connectivity solutions, and managed services to businesses and institutions throughout Iraq. The company builds and maintains fiber-optic networks, data centers, and enterprise communications systems. It has partnered with leading global technology vendors to bring world-class solutions to the local market. Halabja Telecom Services plays a crucial role in advancing the digital transformation of the Kurdistan Region.</div>
+          <div class="card-arrow">Learn More</div>
         </div>
       </div>
     </div>
@@ -230,22 +275,24 @@
 
   <!-- TRADING -->
   <div class="sector-group fade-up" data-sector-group="trading">
-    <div class="sector-label">Trading &amp; Commerce</div>
+    <div class="sector-label"><span>Trading &amp; Commerce</span></div>
     <div class="companies-grid">
       <div class="company-card" data-sector="trading">
-        <div class="company-logo-wrap"><img src="logos/partner-logo-8.svg" alt="Halabja Trading"/></div>
-        <div>
+        <div class="card-logo-panel"><img src="logos/partner-logo-8.svg" alt="Halabja Trading"/></div>
+        <div class="card-info">
           <div class="company-sector-tag">Trading</div>
           <div class="company-name">Halabja Trading</div>
           <div class="company-desc">Halabja Trading, the founding company of the group established in 1992, is a general trading firm with deep roots in the commercial fabric of Kurdistan. It imports and distributes a wide range of consumer goods, industrial supplies, and construction materials from global markets. The company's international network, with offices in Dubai, China, and Turkey, enables competitive sourcing and efficient logistics. Halabja Trading remains the backbone of the group's commercial activities, connecting Iraqi markets to the world.</div>
+          <div class="card-arrow">Learn More</div>
         </div>
       </div>
       <div class="company-card" data-sector="trading">
-        <div class="company-logo-wrap"><img src="logos/partner-logo-9.svg" alt="International Trade Co."/></div>
-        <div>
+        <div class="card-logo-panel"><img src="logos/partner-logo-9.svg" alt="International Trade Co."/></div>
+        <div class="card-info">
           <div class="company-sector-tag">Trading</div>
           <div class="company-name">International Trade Co.</div>
           <div class="company-desc">International Trade Co. specializes in the import and wholesale distribution of premium consumer products across Iraq and the Kurdistan Region. Leveraging the group's established global supplier relationships, it brings high-quality goods to local retailers and institutions at competitive prices. The company focuses on categories including household appliances, electronics, and building fixtures. Its robust distribution network ensures reliable delivery to clients in major cities and provincial markets.</div>
+          <div class="card-arrow">Learn More</div>
         </div>
       </div>
     </div>
@@ -253,22 +300,24 @@
 
   <!-- REAL ESTATE -->
   <div class="sector-group fade-up" data-sector-group="real-estate">
-    <div class="sector-label">Real Estate</div>
+    <div class="sector-label"><span>Real Estate</span></div>
     <div class="companies-grid">
       <div class="company-card" data-sector="real-estate">
-        <div class="company-logo-wrap"><img src="logos/bayan-real-estate.svg" alt="Bayan Real Estate"/></div>
-        <div>
+        <div class="card-logo-panel"><img src="logos/bayan-real-estate.svg" alt="Bayan Real Estate"/></div>
+        <div class="card-info">
           <div class="company-sector-tag">Real Estate</div>
           <div class="company-name">Bayan Real Estate</div>
           <div class="company-desc">Bayan Real Estate, established in 2007, develops premium residential and mixed-use properties that set the standard for modern living in Kurdistan. The company's projects combine thoughtful design, quality construction, and strategic locations to deliver exceptional value for buyers and investors. From apartment complexes to villa communities, Bayan creates homes that reflect the aspirations of a growing middle class. Its portfolio includes some of the most recognized addresses in Sulaymaniyah and surrounding areas.</div>
+          <div class="card-arrow">Learn More</div>
         </div>
       </div>
       <div class="company-card" data-sector="real-estate">
-        <div class="company-logo-wrap"><img src="logos/real-estate-investment.svg" alt="Halabja Real Estate Investment"/></div>
-        <div>
+        <div class="card-logo-panel"><img src="logos/real-estate-investment.svg" alt="Halabja Real Estate Investment"/></div>
+        <div class="card-info">
           <div class="company-sector-tag">Real Estate</div>
           <div class="company-name">Halabja Real Estate Investment</div>
           <div class="company-desc">Halabja Real Estate Investment, launched in 2021, focuses on large-scale commercial and mixed-use development projects across Iraq. It identifies high-value land opportunities, structures investment partnerships, and oversees development from concept through completion. The company brings institutional-grade governance to real estate investment, attracting both local and international capital. Its pipeline includes commercial towers, hospitality assets, and integrated townships designed for long-term income generation.</div>
+          <div class="card-arrow">Learn More</div>
         </div>
       </div>
     </div>
@@ -276,14 +325,15 @@
 
   <!-- EDUCATION -->
   <div class="sector-group fade-up" data-sector-group="education">
-    <div class="sector-label">Education</div>
+    <div class="sector-label"><span>Education</span></div>
     <div class="companies-grid">
       <div class="company-card" data-sector="education">
-        <div class="company-logo-wrap"><img src="logos/komar-montessori.png" alt="International Montessori"/></div>
-        <div>
+        <div class="card-logo-panel"><img src="logos/komar-montessori.png" alt="International Montessori"/></div>
+        <div class="card-info">
           <div class="company-sector-tag">Education</div>
           <div class="company-name">International Montessori</div>
           <div class="company-desc">International Montessori, established in 2019, brings world-class early childhood education to Kurdistan through the globally proven Montessori method. The school nurtures children's natural curiosity, independence, and love of learning in a carefully prepared environment. Certified Montessori educators guide students through hands-on, child-led learning experiences tailored to individual development. The institution is committed to raising a generation of confident, creative, and globally minded citizens in Iraq.</div>
+          <div class="card-arrow">Learn More</div>
         </div>
       </div>
     </div>
@@ -291,22 +341,24 @@
 
   <!-- FOOD -->
   <div class="sector-group fade-up" data-sector-group="food">
-    <div class="sector-label">Food Industry</div>
+    <div class="sector-label"><span>Food Industry</span></div>
     <div class="companies-grid">
       <div class="company-card" data-sector="food">
-        <div class="company-logo-wrap"><img src="logos/partner-logo-10.svg" alt="Rasan Olive Oil"/></div>
-        <div>
+        <div class="card-logo-panel"><img src="logos/partner-logo-10.svg" alt="Rasan Olive Oil"/></div>
+        <div class="card-info">
           <div class="company-sector-tag">Food Industry</div>
           <div class="company-name">Rasan Olive Oil</div>
           <div class="company-desc">Rasan Olive Oil, founded in 2018, produces and distributes premium extra-virgin olive oil sourced from carefully selected olive groves in the Kurdistan Region. The company operates a modern cold-press extraction facility that preserves the oil's natural flavors, nutrients, and quality. Rasan's products are sold through retail channels across Iraq and exported to regional markets. The brand is recognized for its commitment to purity, traceability, and supporting local agricultural communities.</div>
+          <div class="card-arrow">Learn More</div>
         </div>
       </div>
       <div class="company-card" data-sector="food">
-        <div class="company-logo-wrap"><img src="logos/partner-logo-11.svg" alt="Rasan Animal Farm"/></div>
-        <div>
+        <div class="card-logo-panel"><img src="logos/partner-logo-11.svg" alt="Rasan Animal Farm"/></div>
+        <div class="card-info">
           <div class="company-sector-tag">Food Industry</div>
           <div class="company-name">Rasan Animal Farm</div>
           <div class="company-desc">Rasan Animal Farm, established in 2021, operates a large-scale livestock and poultry farming operation to support Iraq's food security. The farm applies modern husbandry practices and biosecurity protocols to ensure the health and productivity of its herds and flocks. Products including eggs, poultry, and dairy inputs are distributed to processors, retailers, and institutional buyers across the region. Rasan Animal Farm contributes to the group's mission of building sustainable local food production capacity.</div>
+          <div class="card-arrow">Learn More</div>
         </div>
       </div>
     </div>
@@ -314,14 +366,15 @@
 
   <!-- INVESTMENT -->
   <div class="sector-group fade-up" data-sector-group="investment">
-    <div class="sector-label">Investment</div>
+    <div class="sector-label"><span>Investment</span></div>
     <div class="companies-grid">
       <div class="company-card" data-sector="investment">
-        <div class="company-logo-wrap"><img src="logos/partner-logo-12.svg" alt="Halabja Investment"/></div>
-        <div>
+        <div class="card-logo-panel"><img src="logos/partner-logo-12.svg" alt="Halabja Investment"/></div>
+        <div class="card-info">
           <div class="company-sector-tag">Investment</div>
           <div class="company-name">Halabja Investment</div>
           <div class="company-desc">Halabja Investment is the group's strategic holding and capital allocation arm, deploying capital across new ventures and existing portfolio companies. It evaluates opportunities in emerging sectors, structures joint ventures, and manages the group's long-term financial position. The company works closely with domestic and international partners to attract foreign direct investment into Kurdistan's economy. Halabja Investment's disciplined approach to capital allocation ensures sustainable returns for the group and its stakeholders.</div>
+          <div class="card-arrow">Learn More</div>
         </div>
       </div>
     </div>
