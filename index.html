@@ -418,14 +418,20 @@
       opacity: 0.9;
     }
     .map-pin {
-      position: absolute; transform: translate(-50%, -100%);
-      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      position: absolute; transform: translate(-50%, -50%);
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
       cursor: pointer; transition: transform 0.2s;
     }
-    .map-pin:hover { transform: translate(-50%, -100%) scale(1.15); }
-    .map-pin.active .pin-icon { filter: drop-shadow(0 0 6px rgba(214,63,50,0.8)); }
-    .pin-icon { width: 28px; height: 34px; }
-    .pin-icon svg { width: 100%; height: 100%; }
+    .map-pin:hover { transform: translate(-50%, -50%) scale(1.2); }
+    .map-pin.active .pin-icon { box-shadow: 0 0 0 3px rgba(214,63,50,0.5), 0 0 18px rgba(214,63,50,0.6); }
+    .pin-icon {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: #D63F32; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+      overflow: hidden; border: 2px solid rgba(255,255,255,0.25);
+      transition: box-shadow 0.2s;
+    }
+    .pin-icon img { width: 24px; height: 24px; object-fit: contain; filter: brightness(0) invert(1); }
     .pin-label {
       font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
       text-transform: uppercase; color: rgba(255,255,255,0.9);
@@ -765,24 +771,24 @@
     <div class="branches-right fade-up" style="transition-delay:0.1s">
       <div class="world-map-wrap">
         <img src="assets/world-map.svg" class="world-map-img" alt="World map" />
-        <!-- Iraq, Sulaymaniyah: lat 35.56, lon 45.43 → ~62.9%, ~30.2% -->
-        <div class="map-pin active" data-loc="iraq" style="left:62.9%;top:30.2%">
-          <div class="pin-icon"><svg viewBox="0 0 24 30" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.4 0 0 5.4 0 12c0 8.5 12 18 12 18s12-9.5 12-18C24 5.4 18.6 0 12 0z" fill="#D63F32"/><text x="12" y="15" text-anchor="middle" fill="white" font-size="9" font-weight="700" font-family="Helvetica Neue,sans-serif">H</text></svg></div>
+        <!-- Iraq, Sulaymaniyah -->
+        <div class="map-pin active" data-loc="iraq" style="left:33.6%;top:38.0%">
+          <div class="pin-icon"><img src="logos/halabja-shape-white.svg" alt="HG" /></div>
           <div class="pin-label">Iraq</div>
         </div>
-        <!-- UAE, Dubai: lat 25.2, lon 55.27 → ~65.4%, ~35.8% -->
-        <div class="map-pin" data-loc="uae" style="left:65.4%;top:36.1%">
-          <div class="pin-icon"><svg viewBox="0 0 24 30" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.4 0 0 5.4 0 12c0 8.5 12 18 12 18s12-9.5 12-18C24 5.4 18.6 0 12 0z" fill="#D63F32"/><text x="12" y="15" text-anchor="middle" fill="white" font-size="9" font-weight="700" font-family="Helvetica Neue,sans-serif">H</text></svg></div>
+        <!-- UAE, Dubai -->
+        <div class="map-pin" data-loc="uae" style="left:39.0%;top:51.3%">
+          <div class="pin-icon"><img src="logos/halabja-shape-white.svg" alt="HG" /></div>
           <div class="pin-label">UAE</div>
         </div>
-        <!-- China, Yiwu: lat 29.31, lon 120.07 → ~83.3%, ~33.8% -->
-        <div class="map-pin" data-loc="china" style="left:83.3%;top:33.8%">
-          <div class="pin-icon"><svg viewBox="0 0 24 30" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.4 0 0 5.4 0 12c0 8.5 12 18 12 18s12-9.5 12-18C24 5.4 18.6 0 12 0z" fill="#D63F32"/><text x="12" y="15" text-anchor="middle" fill="white" font-size="9" font-weight="700" font-family="Helvetica Neue,sans-serif">H</text></svg></div>
+        <!-- China, Yiwu -->
+        <div class="map-pin" data-loc="china" style="left:75.0%;top:46.1%">
+          <div class="pin-icon"><img src="logos/halabja-shape-white.svg" alt="HG" /></div>
           <div class="pin-label">China</div>
         </div>
-        <!-- Turkey, Istanbul: lat 41.01, lon 28.98 → ~58.0%, ~27.2% -->
-        <div class="map-pin" data-loc="turkey" style="left:58.0%;top:27.2%">
-          <div class="pin-icon"><svg viewBox="0 0 24 30" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.4 0 0 5.4 0 12c0 8.5 12 18 12 18s12-9.5 12-18C24 5.4 18.6 0 12 0z" fill="#D63F32"/><text x="12" y="15" text-anchor="middle" fill="white" font-size="9" font-weight="700" font-family="Helvetica Neue,sans-serif">H</text></svg></div>
+        <!-- Turkey, Istanbul -->
+        <div class="map-pin" data-loc="turkey" style="left:24.4%;top:31.2%">
+          <div class="pin-icon"><img src="logos/halabja-shape-white.svg" alt="HG" /></div>
           <div class="pin-label">Turkey</div>
         </div>
       </div>
