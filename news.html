@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>News — Halabja Group</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #0f1923;
+    --white: #fff;
+    --accent: #0D1F3D;
+    --red: #D63F32;
+    --gray-light: #e4e8ef;
+    --section-pad: clamp(60px,8vw,120px);
+  }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; color: var(--black); background: var(--white); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 6vw;
+    background: rgba(13,31,61,0.95); backdrop-filter: blur(10px);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo img { height: 36px; }
+  .nav-logo-text { display: flex; flex-direction: column; }
+  .nav-logo-name { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); }
+  .nav-logo-tag { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  nav ul { list-style: none; display: flex; gap: 36px; }
+  nav ul a { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
+  nav ul a:hover, nav ul a.active { color: var(--white); }
+  .nav-cta { background: var(--red); color: var(--white) !important; padding: 10px 20px; border-radius: 2px; }
+
+  /* HERO */
+  .page-hero {
+    background: var(--accent);
+    padding: 160px 6vw 80px;
+    position: relative; overflow: hidden;
+  }
+  .page-hero::after {
+    content: 'News';
+    position: absolute; right: 4vw; bottom: -20px;
+    font-size: clamp(100px,18vw,240px); font-weight: 900; letter-spacing: -0.03em;
+    color: rgba(255,255,255,0.04); line-height: 1; pointer-events: none;
+  }
+  .hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+  .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--red); }
+  .page-hero h1 { font-size: clamp(36px,6vw,72px); font-weight: 900; color: var(--white); line-height: 1.05; letter-spacing: -0.02em; }
+  .page-hero p { color: rgba(255,255,255,0.5); font-size: 16px; line-height: 1.7; max-width: 520px; margin-top: 20px; }
+
+  /* FILTER */
+  .filter-bar {
+    position: sticky; top: 64px; z-index: 50;
+    background: var(--white); border-bottom: 1px solid var(--gray-light);
+    padding: 0 6vw; display: flex; gap: 4px; overflow-x: auto;
+  }
+  .filter-btn {
+    flex-shrink: 0; padding: 14px 20px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; border: none;
+    background: none; cursor: pointer; color: rgba(15,25,35,0.4);
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .filter-btn:hover { color: var(--black); }
+  .filter-btn.active { color: var(--red); border-color: var(--red); }
+
+  /* FEATURED */
+  .news-section { padding: var(--section-pad) 6vw; }
+  .featured-article {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border: 1px solid var(--gray-light); border-radius: 4px; overflow: hidden;
+    margin-bottom: 60px;
+    transition: box-shadow 0.2s;
+  }
+  .featured-article:hover { box-shadow: 0 12px 40px rgba(13,31,61,0.12); }
+  .featured-img { position: relative; overflow: hidden; min-height: 340px; }
+  .featured-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
+  .featured-article:hover .featured-img img { transform: scale(1.04); }
+  .featured-cat {
+    position: absolute; top: 20px; left: 20px;
+    background: var(--red); color: var(--white); font-size: 9px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase; padding: 5px 12px; border-radius: 2px;
+  }
+  .featured-body {
+    padding: 48px 40px; display: flex; flex-direction: column; justify-content: center; gap: 16px;
+  }
+  .article-date { font-size: 11px; color: rgba(15,25,35,0.35); letter-spacing: 0.08em; }
+  .featured-title { font-size: 26px; font-weight: 800; line-height: 1.25; letter-spacing: -0.01em; color: var(--black); }
+  .featured-excerpt { font-size: 15px; line-height: 1.75; color: rgba(15,25,35,0.6); }
+  .read-more { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); text-decoration: none; margin-top: 8px; }
+  .read-more::after { content: '→'; transition: transform 0.2s; }
+  .read-more:hover::after { transform: translateX(4px); }
+
+  /* GRID */
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 32px; display: flex; align-items: center; gap: 16px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--gray-light); }
+  .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .news-card {
+    border: 1px solid var(--gray-light); border-radius: 4px; overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+  .news-card:hover { border-color: var(--accent); box-shadow: 0 8px 32px rgba(13,31,61,0.1); transform: translateY(-4px); }
+  .card-img { position: relative; overflow: hidden; aspect-ratio: 16/9; }
+  .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+  .news-card:hover .card-img img { transform: scale(1.06); }
+  .card-cat {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--red); color: var(--white); font-size: 8px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px;
+  }
+  .card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+  .card-date { font-size: 10px; color: rgba(15,25,35,0.35); letter-spacing: 0.08em; }
+  .card-title { font-size: 16px; font-weight: 700; line-height: 1.35; color: var(--black); flex: 1; }
+  .card-excerpt { font-size: 13px; line-height: 1.65; color: rgba(15,25,35,0.55); }
+  .card-link { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; }
+  .card-link::after { content: '→'; transition: transform 0.2s; }
+  .card-link:hover::after { transform: translateX(3px); }
+
+  /* FOOTER */
+  footer { background: var(--accent); padding: 40px 6vw; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: var(--section-pad); }
+  footer p { font-size: 12px; color: rgba(255,255,255,0.35); }
+  footer a { font-size: 12px; color: rgba(255,255,255,0.5); text-decoration: none; }
+  footer a:hover { color: var(--white); }
+
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    .featured-article { grid-template-columns: 1fr; }
+    .news-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    nav ul { display: none; }
+    .news-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logos/halabja-logo-white.svg" alt="Halabja Group" />
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Halabja Group</span>
+      <span class="nav-logo-tag">Trust the Expertise</span>
+    </div>
+  </a>
+  <ul>
+    <li><a href="about.html">About</a></li>
+    <li><a href="companies.html">Companies</a></li>
+    <li><a href="news.html" class="active">News</a></li>
+    <li><a href="index.html#branches">Branches</a></li>
+    <li><a href="careers.html" class="nav-cta">Careers</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero">
+  <div class="hero-eyebrow">Latest Updates</div>
+  <h1>News &amp;<br>Announcements</h1>
+  <p>Stay up to date with the latest projects, milestones, and developments from Halabja Group and its subsidiaries.</p>
+</section>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-cat="all">All</button>
+  <button class="filter-btn" data-cat="Event">Events</button>
+  <button class="filter-btn" data-cat="Project">Projects</button>
+  <button class="filter-btn" data-cat="Corporate">Corporate</button>
+  <button class="filter-btn" data-cat="People">People</button>
+  <button class="filter-btn" data-cat="Infrastructure">Infrastructure</button>
+</div>
+
+<div class="news-section">
+
+  <!-- FEATURED -->
+  <div class="featured-article fade-up" data-cat="Event">
+    <div class="featured-img">
+      <img src="assets/news/news-1.jpg" alt="Inauguration" />
+      <span class="featured-cat">Event</span>
+    </div>
+    <div class="featured-body">
+      <div class="article-date">June 2024</div>
+      <div class="featured-title">Halabja Group Inaugurates New Facility with Senior Officials</div>
+      <div class="featured-excerpt">In a landmark ceremony attended by senior government officials and regional leaders, Halabja Group officially opened its latest industrial facility in the Kurdistan Region. The new plant represents a significant investment in local manufacturing capacity and is expected to create over 200 direct jobs. Chairman Aso Bamoki addressed guests on the company's vision for continued growth and commitment to the region's development. The event underscored Halabja Group's role as a cornerstone of Kurdistan's economic advancement.</div>
+      <a href="https://www.halabjagroup.com/en/news" target="_blank" class="read-more">Read full story</a>
+    </div>
+  </div>
+
+  <!-- ALL NEWS GRID -->
+  <div class="section-label">All Stories</div>
+  <div class="news-grid">
+
+    <div class="news-card fade-up" data-cat="People" style="transition-delay:0.05s">
+      <div class="card-img">
+        <img src="assets/news/news-3.jpg" alt="Team"/>
+        <span class="card-cat">People</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">May 2024</div>
+        <div class="card-title">New Professionals Join the Growing Halabja Group Team</div>
+        <div class="card-excerpt">Halabja Group welcomed a cohort of experienced engineers, managers, and specialists to support its expanding operations across eight sectors.</div>
+        <a href="https://www.halabjagroup.com/en/news" target="_blank" class="card-link">Read more</a>
+      </div>
+    </div>
+
+    <div class="news-card fade-up" data-cat="Project" style="transition-delay:0.1s">
+      <div class="card-img">
+        <img src="assets/news/news-2.jpg" alt="Project"/>
+        <span class="card-cat">Project</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">April 2024</div>
+        <div class="card-title">Major Project Launch Ceremony in Kurdistan Region</div>
+        <div class="card-excerpt">A high-profile groundbreaking ceremony marked the start of construction on a new infrastructure corridor, backed by Halabja Group subsidiaries.</div>
+        <a href="https://www.halabjagroup.com/en/news" target="_blank" class="card-link">Read more</a>
+      </div>
+    </div>
+
+    <div class="news-card fade-up" data-cat="Corporate" style="transition-delay:0.15s">
+      <div class="card-img">
+        <img src="assets/news/news-5.jpg" alt="Corporate"/>
+        <span class="card-cat">Corporate</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">February 2024</div>
+        <div class="card-title">Halabja Group Expands Operations Across New Sectors</div>
+        <div class="card-excerpt">The group announced strategic expansions into food industry and renewable energy, reinforcing its position as Kurdistan's most diversified conglomerate.</div>
+        <a href="https://www.halabjagroup.com/en/news" target="_blank" class="card-link">Read more</a>
+      </div>
+    </div>
+
+    <div class="news-card fade-up" data-cat="Infrastructure" style="transition-delay:0.0s">
+      <div class="card-img">
+        <img src="assets/news/news-3.jpg" alt="Infrastructure"/>
+        <span class="card-cat">Infrastructure</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">January 2024</div>
+        <div class="card-title">Strategic Infrastructure Development Underway in Halabja</div>
+        <div class="card-excerpt">Aran Asphalt and Halabja for General Contracting have jointly commenced work on a critical road network linking key industrial zones in the region.</div>
+        <a href="https://www.halabjagroup.com/en/news" target="_blank" class="card-link">Read more</a>
+      </div>
+    </div>
+
+    <div class="news-card fade-up" data-cat="Event" style="transition-delay:0.05s">
+      <div class="card-img">
+        <img src="assets/news/news-4.webp" alt="Event"/>
+        <span class="card-cat">Event</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">December 2023</div>
+        <div class="card-title">Annual Group Summit Brings Leaders Together</div>
+        <div class="card-excerpt">Halabja Group hosted its annual leadership summit, bringing together the CEOs and directors of all 23 subsidiaries to align on strategy for the year ahead.</div>
+        <a href="https://www.halabjagroup.com/en/news" target="_blank" class="card-link">Read more</a>
+      </div>
+    </div>
+
+    <div class="news-card fade-up" data-cat="Project" style="transition-delay:0.1s">
+      <div class="card-img">
+        <img src="assets/news/news-6.webp" alt="Project"/>
+        <span class="card-cat">Project</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">October 2023</div>
+        <div class="card-title">Rasan Olive Oil Opens New Cold-Press Plant</div>
+        <div class="card-excerpt">Rasan Olive Oil celebrated the commissioning of its expanded production facility, doubling capacity to meet growing domestic and export demand for premium olive oil.</div>
+        <a href="https://www.halabjagroup.com/en/news" target="_blank" class="card-link">Read more</a>
+      </div>
+    </div>
+
+    <div class="news-card fade-up" data-cat="Corporate" style="transition-delay:0.0s">
+      <div class="card-img">
+        <img src="assets/news/news-1.jpg" alt="Corporate"/>
+        <span class="card-cat">Corporate</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">August 2023</div>
+        <div class="card-title">Halabja Group Celebrates 30 Years of Excellence</div>
+        <div class="card-excerpt">Marking three decades since Halabja Trading's founding in 1992, the group commemorated its journey from a single trading company to a diversified enterprise spanning eight sectors.</div>
+        <a href="https://www.halabjagroup.com/en/news" target="_blank" class="card-link">Read more</a>
+      </div>
+    </div>
+
+    <div class="news-card fade-up" data-cat="People" style="transition-delay:0.05s">
+      <div class="card-img">
+        <img src="assets/news/news-5.jpg" alt="People"/>
+        <span class="card-cat">People</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">June 2023</div>
+        <div class="card-title">International Montessori Graduates First Class</div>
+        <div class="card-excerpt">International Montessori school celebrated the graduation of its pioneering first cohort, demonstrating the group's commitment to transforming education in Kurdistan.</div>
+        <a href="https://www.halabjagroup.com/en/news" target="_blank" class="card-link">Read more</a>
+      </div>
+    </div>
+
+    <div class="news-card fade-up" data-cat="Infrastructure" style="transition-delay:0.1s">
+      <div class="card-img">
+        <img src="assets/news/news-2.jpg" alt="Infrastructure"/>
+        <span class="card-cat">Infrastructure</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">March 2023</div>
+        <div class="card-title">Ishtar Brick Factory Begins Full Production</div>
+        <div class="card-excerpt">Ishtar Brick Factory reached full operational capacity, supplying millions of premium bricks monthly to construction projects across the Kurdistan Region and beyond.</div>
+        <a href="https://www.halabjagroup.com/en/news" target="_blank" class="card-link">Read more</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Halabja Group. All rights reserved.</p>
+  <a href="index.html">← Back to main site</a>
+</footer>
+
+<script>
+  // Filter
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.cat;
+      document.querySelectorAll('.news-card, .featured-article').forEach(card => {
+        card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+      });
+    });
+  });
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
