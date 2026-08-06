@@ -281,7 +281,28 @@
       .job-card { grid-template-columns: 1fr; }
       .hero-stats-row { gap: 28px; }
     }
+
+    /* ── LANGUAGE SWITCHER ── */
+    .lang-switcher { display: flex; gap: 3px; align-items: center; margin-left: 16px; }
+    .lang-btn { background: none; border: 1px solid rgba(13,31,61,0.3); color: rgba(13,31,61,0.6); font-size: 10px; letter-spacing: 0.05em; padding: 5px 9px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+    .lang-btn:hover, .lang-btn.active { background: var(--red); border-color: var(--red); color: white; }
+    @media (max-width: 900px) { .lang-switcher { display: none; } }
+
+    /* ── RTL OVERRIDES ── */
+    [dir="rtl"] { font-family: 'Noto Sans Arabic', 'Helvetica Neue', Arial, sans-serif; }
+    [dir="rtl"] nav { flex-direction: row-reverse; }
+    [dir="rtl"] .nav-links { flex-direction: row-reverse; }
+    [dir="rtl"] .careers-hero { text-align: right; direction: rtl; }
+    [dir="rtl"] .hero-stats-row { flex-direction: row-reverse; }
+    [dir="rtl"] .filter-bar { direction: rtl; }
+    [dir="rtl"] .job-card { direction: rtl; text-align: right; }
+    [dir="rtl"] .job-meta { flex-direction: row-reverse; flex-wrap: wrap; }
+    [dir="rtl"] .open-section { direction: rtl; text-align: center; }
+    [dir="rtl"] .modal-content { direction: rtl; text-align: right; }
+    [dir="rtl"] .page-footer { flex-direction: row-reverse; }
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <script src="lang.js" defer></script>
 </head>
 <body>
 
@@ -291,40 +312,45 @@
     <img src="logos/halabja-logo-blue.svg" alt="Halabja Group" />
     <div class="nav-logo-text">
       <span class="nav-logo-name">Halabja Group</span>
-      <span class="nav-logo-sub">Trust the Expertise</span>
+      <span class="nav-logo-sub" data-i18n="nav_tagline">Trust the Expertise</span>
     </div>
   </a>
   <ul class="nav-links">
-    <li><a href="index.html#about">About</a></li>
-    <li><a href="index.html#companies">Companies</a></li>
-    <li><a href="index.html#news">News</a></li>
-    <li><a href="index.html#branches">Branches</a></li>
+    <li><a href="about.html" data-i18n="nav_about">About</a></li>
+    <li><a href="companies.html" data-i18n="nav_companies">Companies</a></li>
+    <li><a href="news.html" data-i18n="nav_news">News</a></li>
+    <li><a href="index.html#branches" data-i18n="nav_branches">Branches</a></li>
   </ul>
-  <a href="careers.html" class="nav-cta">Careers</a>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" data-lang="ku" onclick="setLang('ku')">کوردی</button>
+    <button class="lang-btn" data-lang="ar" onclick="setLang('ar')">عربي</button>
+  </div>
+  <a href="careers.html" class="nav-cta" data-i18n="nav_careers">Careers</a>
   <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
 <!-- HERO -->
 <section class="careers-hero">
-  <span class="careers-hero-tag">Join the Team</span>
-  <h1>Build Your Career<br>with <strong>Halabja Group</strong></h1>
-  <p>We are always looking for talented, driven individuals to grow with us across our sectors — construction, energy, trading, education, and more.</p>
+  <span class="careers-hero-tag" data-i18n="crp_eyebrow">Join the Team</span>
+  <h1><span data-i18n="crp_h1">Build Your Career</span><br><span data-i18n="crp_h2">with Halabja Group</span></h1>
+  <p data-i18n="crp_sub">We are always looking for talented, driven individuals to grow with us across our sectors — construction, energy, trading, education, and more.</p>
   <div class="hero-stats-row">
     <div class="hero-stat">
-      <div class="hero-stat-num">8</div>
-      <div class="hero-stat-lbl">Sectors</div>
+      <div class="hero-stat-num" data-i18n="crp_stat3_n">8</div>
+      <div class="hero-stat-lbl" data-i18n="crp_stat3_l">Sectors</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-stat-num">500+</div>
-      <div class="hero-stat-lbl">Employees</div>
+      <div class="hero-stat-num" data-i18n="crp_stat1_n">500+</div>
+      <div class="hero-stat-lbl" data-i18n="crp_stat1_l">Employees</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-stat-num">4</div>
-      <div class="hero-stat-lbl">Countries</div>
+      <div class="hero-stat-num" data-i18n="crp_stat4_n">4</div>
+      <div class="hero-stat-lbl" data-i18n="crp_stat4_l">Countries</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-stat-num">35+</div>
-      <div class="hero-stat-lbl">Years Active</div>
+      <div class="hero-stat-num" data-i18n="ap_stat1_n">35+</div>
+      <div class="hero-stat-lbl" data-i18n="ap_stat1_l">Years Active</div>
     </div>
   </div>
 </section>
@@ -332,13 +358,13 @@
 <!-- FILTER BAR -->
 <div class="filter-bar" id="filterBar">
   <span class="filter-label">Filter:</span>
-  <button class="filter-btn active" data-filter="all">All Openings</button>
-  <button class="filter-btn" data-filter="construction">Construction</button>
-  <button class="filter-btn" data-filter="energy">Energy</button>
-  <button class="filter-btn" data-filter="trading">Trading</button>
-  <button class="filter-btn" data-filter="education">Education</button>
-  <button class="filter-btn" data-filter="realestate">Real Estate</button>
-  <button class="filter-btn" data-filter="admin">Admin</button>
+  <button class="filter-btn active" data-filter="all" data-i18n="crp_filter_all">All Openings</button>
+  <button class="filter-btn" data-filter="construction" data-i18n="crp_filter_construction">Construction</button>
+  <button class="filter-btn" data-filter="energy" data-i18n="crp_filter_energy">Energy</button>
+  <button class="filter-btn" data-filter="trading" data-i18n="crp_filter_trading">Trading</button>
+  <button class="filter-btn" data-filter="education" data-i18n="crp_filter_education">Education</button>
+  <button class="filter-btn" data-filter="realestate" data-i18n="crp_filter_realestate">Real Estate</button>
+  <button class="filter-btn" data-filter="admin" data-i18n="crp_filter_admin">Admin</button>
 </div>
 
 <!-- JOBS -->
@@ -366,7 +392,7 @@
           <span class="job-tag">5+ Years Exp</span>
         </div>
       </div>
-      <button class="btn-apply" onclick="openModal('Senior Civil Engineer','Construction & Industrial')">Apply Now →</button>
+      <button class="btn-apply" data-i18n="crp_apply_btn" onclick="openModal('Senior Civil Engineer','Construction & Industrial')">Apply Now →</button>
     </div>
 
     <div class="job-card" data-category="construction">
@@ -384,7 +410,7 @@
           <span class="job-tag">7+ Years Exp</span>
         </div>
       </div>
-      <button class="btn-apply" onclick="openModal('Project Manager — Infrastructure','Construction & Industrial')">Apply Now →</button>
+      <button class="btn-apply" data-i18n="crp_apply_btn" onclick="openModal('Project Manager — Infrastructure','Construction & Industrial')">Apply Now →</button>
     </div>
 
     <div class="job-card" data-category="energy">
@@ -402,7 +428,7 @@
           <span class="job-tag">3+ Years Exp</span>
         </div>
       </div>
-      <button class="btn-apply" onclick="openModal('Petroleum Engineer','Energy')">Apply Now →</button>
+      <button class="btn-apply" data-i18n="crp_apply_btn" onclick="openModal('Petroleum Engineer','Energy')">Apply Now →</button>
     </div>
 
     <div class="job-card" data-category="energy">
@@ -420,7 +446,7 @@
           <span class="job-tag">2+ Years Exp</span>
         </div>
       </div>
-      <button class="btn-apply" onclick="openModal('HSE Officer','Energy')">Apply Now →</button>
+      <button class="btn-apply" data-i18n="crp_apply_btn" onclick="openModal('HSE Officer','Energy')">Apply Now →</button>
     </div>
 
     <div class="job-card" data-category="trading">
@@ -438,7 +464,7 @@
           <span class="job-tag">3+ Years Exp</span>
         </div>
       </div>
-      <button class="btn-apply" onclick="openModal('International Trade Specialist','Trading')">Apply Now →</button>
+      <button class="btn-apply" data-i18n="crp_apply_btn" onclick="openModal('International Trade Specialist','Trading')">Apply Now →</button>
     </div>
 
     <div class="job-card" data-category="trading">
@@ -456,7 +482,7 @@
           <span class="job-tag">2+ Years Exp</span>
         </div>
       </div>
-      <button class="btn-apply" onclick="openModal('Supply Chain Coordinator','Trading')">Apply Now →</button>
+      <button class="btn-apply" data-i18n="crp_apply_btn" onclick="openModal('Supply Chain Coordinator','Trading')">Apply Now →</button>
     </div>
 
     <div class="job-card" data-category="education">
@@ -474,7 +500,7 @@
           <span class="job-tag">2+ Years Exp</span>
         </div>
       </div>
-      <button class="btn-apply" onclick="openModal('Academic Affairs Coordinator','Education')">Apply Now →</button>
+      <button class="btn-apply" data-i18n="crp_apply_btn" onclick="openModal('Academic Affairs Coordinator','Education')">Apply Now →</button>
     </div>
 
     <div class="job-card" data-category="realestate">
@@ -492,7 +518,7 @@
           <span class="job-tag">4+ Years Exp</span>
         </div>
       </div>
-      <button class="btn-apply" onclick="openModal('Real Estate Sales Manager','Real Estate')">Apply Now →</button>
+      <button class="btn-apply" data-i18n="crp_apply_btn" onclick="openModal('Real Estate Sales Manager','Real Estate')">Apply Now →</button>
     </div>
 
     <div class="job-card" data-category="realestate">
@@ -510,7 +536,7 @@
           <span class="job-tag">3+ Years Exp</span>
         </div>
       </div>
-      <button class="btn-apply" onclick="openModal('Architectural Designer','Real Estate')">Apply Now →</button>
+      <button class="btn-apply" data-i18n="crp_apply_btn" onclick="openModal('Architectural Designer','Real Estate')">Apply Now →</button>
     </div>
 
     <div class="job-card" data-category="admin">
@@ -528,7 +554,7 @@
           <span class="job-tag">2+ Years Exp</span>
         </div>
       </div>
-      <button class="btn-apply" onclick="openModal('HR & Talent Acquisition Specialist','Administration')">Apply Now →</button>
+      <button class="btn-apply" data-i18n="crp_apply_btn" onclick="openModal('HR & Talent Acquisition Specialist','Administration')">Apply Now →</button>
     </div>
 
     <div class="job-card" data-category="admin">
@@ -546,7 +572,7 @@
           <span class="job-tag">3+ Years Exp</span>
         </div>
       </div>
-      <button class="btn-apply" onclick="openModal('Financial Analyst','Administration')">Apply Now →</button>
+      <button class="btn-apply" data-i18n="crp_apply_btn" onclick="openModal('Financial Analyst','Administration')">Apply Now →</button>
     </div>
 
     <div class="job-card" data-category="admin">
@@ -564,7 +590,7 @@
           <span class="job-tag">2+ Years Exp</span>
         </div>
       </div>
-      <button class="btn-apply" onclick="openModal('Marketing & Communications Officer','Administration')">Apply Now →</button>
+      <button class="btn-apply" data-i18n="crp_apply_btn" onclick="openModal('Marketing & Communications Officer','Administration')">Apply Now →</button>
     </div>
 
   </div>
@@ -576,9 +602,9 @@
 
 <!-- CTA BAND -->
 <section class="careers-cta">
-  <h2>Don't see a <strong>suitable role?</strong></h2>
+  <h2><span data-i18n="crp_open_h1">Don't see a suitable role?</span></h2>
   <p>Send us an open application — we are always interested in meeting talented people.</p>
-  <button class="btn-white" onclick="openModal('Open Application','General')">Send Open Application</button>
+  <button class="btn-white" data-i18n="crp_open_btn" onclick="openModal('Open Application','General')">Send Open Application</button>
 </section>
 
 <!-- FOOTER -->
@@ -587,11 +613,11 @@
     <img src="logos/halabja-logo-blue.svg" style="height:26px;" alt="Halabja Group" />
     <div class="nav-logo-text">
       <span class="nav-logo-name" style="color:#0D1F3D;font-size:12px;">Halabja Group</span>
-      <span class="nav-logo-sub" style="color:rgba(41,69,126,0.5);">Trust the Expertise</span>
+      <span class="nav-logo-sub" style="color:rgba(41,69,126,0.5);" data-i18n="nav_tagline">Trust the Expertise</span>
     </div>
   </a>
-  <p>© 2026 Halabja Group. All rights reserved.</p>
-  <a href="index.html">← Back to main site</a>
+  <p data-i18n="footer_copy">© 2026 Halabja Group. All rights reserved.</p>
+  <a href="index.html" data-i18n="back_main">← Back to main site</a>
 </div>
 
 <!-- APPLY MODAL -->

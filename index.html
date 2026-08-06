@@ -481,7 +481,44 @@
     /* Scroll animations */
     .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── LANGUAGE SWITCHER ── */
+    .lang-switcher { display: flex; gap: 3px; align-items: center; margin-left: 16px; }
+    .lang-btn {
+      background: none; border: 1px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.7); font-size: 10px; letter-spacing: 0.05em;
+      padding: 5px 9px; cursor: pointer; font-family: inherit;
+      transition: all 0.2s;
+    }
+    .lang-btn:hover, .lang-btn.active { background: var(--red); border-color: var(--red); color: white; }
+    nav.scrolled .lang-btn { border-color: rgba(13,31,61,0.3); color: rgba(13,31,61,0.7); }
+    nav.scrolled .lang-btn:hover, nav.scrolled .lang-btn.active { background: var(--red); border-color: var(--red); color: white; }
+    @media (max-width: 900px) { .lang-switcher { display: none; } }
+
+    /* ── RTL OVERRIDES ── */
+    [dir="rtl"] { font-family: 'Noto Sans Arabic', 'Helvetica Neue', Arial, sans-serif; }
+    [dir="rtl"] .nav-links { flex-direction: row-reverse; }
+    [dir="rtl"] .nav-logo-text { text-align: right; }
+    [dir="rtl"] .hero-content { text-align: right; }
+    [dir="rtl"] .hero-actions { flex-direction: row-reverse; }
+    [dir="rtl"] .hero-desc { margin-left: auto; margin-right: 0; }
+    [dir="rtl"] .about-badge { left: -24px; right: auto; }
+    [dir="rtl"] .about-body { text-align: right; }
+    [dir="rtl"] .about-values { direction: rtl; }
+    [dir="rtl"] .value-name, [dir="rtl"] .value-desc { text-align: right; }
+    [dir="rtl"] .news-header { flex-direction: row-reverse; }
+    [dir="rtl"] .branches-inner { direction: rtl; }
+    [dir="rtl"] .branches-desc { text-align: right; }
+    [dir="rtl"] .branch-item { flex-direction: row-reverse; text-align: right; }
+    [dir="rtl"] .footer-main { direction: rtl; }
+    [dir="rtl"] .footer-col h4 { text-align: right; }
+    [dir="rtl"] .footer-col ul li a { flex-direction: row-reverse; }
+    [dir="rtl"] .footer-bottom { flex-direction: row-reverse; }
+    [dir="rtl"] .mobile-nav { text-align: right; direction: rtl; }
+    [dir="rtl"] .hero-title { letter-spacing: 0; }
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <script src="lang.js" defer></script>
 </head>
 <body>
 
@@ -491,16 +528,21 @@
     <img src="logos/halabja-logo-blue.svg" alt="Halabja Group Logo" id="navLogoImg" />
     <div class="nav-logo-text">
       <span class="nav-logo-name">Halabja Group</span>
-      <span class="nav-logo-sub">Trust the Expertise</span>
+      <span class="nav-logo-sub" data-i18n="nav_tagline">Trust the Expertise</span>
     </div>
   </a>
   <ul class="nav-links">
-    <li><a href="about.html">About</a></li>
-    <li><a href="companies.html">Companies</a></li>
-    <li><a href="news.html">News</a></li>
-    <li><a href="#branches">Branches</a></li>
+    <li><a href="about.html" data-i18n="nav_about">About</a></li>
+    <li><a href="companies.html" data-i18n="nav_companies">Companies</a></li>
+    <li><a href="news.html" data-i18n="nav_news">News</a></li>
+    <li><a href="#branches" data-i18n="nav_branches">Branches</a></li>
   </ul>
-  <a href="careers.html" class="nav-cta">Careers</a>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" data-lang="ku" onclick="setLang('ku')">کوردی</button>
+    <button class="lang-btn" data-lang="ar" onclick="setLang('ar')">عربي</button>
+  </div>
+  <a href="careers.html" class="nav-cta" data-i18n="nav_careers">Careers</a>
   <button class="hamburger" id="menuBtn" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -519,13 +561,17 @@
     <button class="mobile-close" id="menuClose">✕</button>
   </div>
   <nav class="mobile-nav">
-    <a href="#about" onclick="closeMobile()">About</a>
-    <a href="companies.html" onclick="closeMobile()">Companies</a>
-    <a href="news.html" onclick="closeMobile()">News</a>
-    <a href="#branches" onclick="closeMobile()">Branches</a>
-    <a href="#projects" onclick="closeMobile()">Projects</a>
-    <a href="#contact" onclick="closeMobile()">Contact</a>
+    <a href="about.html" onclick="closeMobile()" data-i18n="nav_about">About</a>
+    <a href="companies.html" onclick="closeMobile()" data-i18n="nav_companies">Companies</a>
+    <a href="news.html" onclick="closeMobile()" data-i18n="nav_news">News</a>
+    <a href="#branches" onclick="closeMobile()" data-i18n="nav_branches">Branches</a>
+    <a href="careers.html" onclick="closeMobile()" data-i18n="nav_careers">Careers</a>
   </nav>
+  <div style="display:flex;gap:8px;margin-top:32px;">
+    <button class="lang-btn" data-lang="en" onclick="setLang('en');closeMobile()" style="border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.7);">EN</button>
+    <button class="lang-btn" data-lang="ku" onclick="setLang('ku');closeMobile()" style="border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.7);">کوردی</button>
+    <button class="lang-btn" data-lang="ar" onclick="setLang('ar');closeMobile()" style="border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.7);">عربي</button>
+  </div>
 </div>
 
 <!-- HERO -->
@@ -539,33 +585,33 @@
   <div class="hero-content fade-up">
     <img src="logos/halabja-logo-red.svg" alt="Halabja Group" style="height:56px;width:auto;display:block;margin-bottom:28px;" />
     <h1 class="hero-title">
-      Trust the <em>Expertise</em>
+      <span data-i18n="hero_headline">Trust the</span> <em data-i18n="hero_accent">Expertise</em>
     </h1>
-    <p class="hero-desc">
+    <p class="hero-desc" data-i18n="hero_sub">
       A diversified group operating across construction, petroleum, and trading — delivering infrastructure, energy, and commerce that powers the region.
     </p>
     <div class="hero-actions">
-      <a href="#services" class="btn-primary">Explore Services</a>
-      <a href="#projects" class="btn-secondary">View Projects</a>
+      <a href="#services" class="btn-primary" data-i18n="hero_btn1">Explore Services</a>
+      <a href="#projects" class="btn-secondary" data-i18n="hero_btn2">View Projects</a>
     </div>
   </div>
   <div class="hero-visual fade-up" style="transition-delay:0.15s">
     <div class="hero-stats">
       <div class="stat-card">
-        <div class="stat-num">35+</div>
-        <div class="stat-label">Years of<br>Experience</div>
+        <div class="stat-num" data-i18n="stat1_n">35+</div>
+        <div class="stat-label" data-i18n="stat1_l">Years of Experience</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num">150+</div>
-        <div class="stat-label">Projects<br>Completed</div>
+        <div class="stat-num" data-i18n="stat2_n">150+</div>
+        <div class="stat-label" data-i18n="stat2_l">Projects Completed</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num">8</div>
-        <div class="stat-label">Core<br>Sectors</div>
+        <div class="stat-num" data-i18n="stat3_n">8</div>
+        <div class="stat-label" data-i18n="stat3_l">Core Sectors</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num">500+</div>
-        <div class="stat-label">Skilled<br>Employees</div>
+        <div class="stat-num" data-i18n="stat4_n">500+</div>
+        <div class="stat-label" data-i18n="stat4_l">Skilled Employees</div>
       </div>
     </div>
   </div>
@@ -575,22 +621,22 @@
 <div class="marquee-wrapper">
   <div class="marquee-track">
     <!-- duplicated for seamless loop -->
-    <span class="marquee-item">Service</span>
-    <span class="marquee-item">Investment</span>
-    <span class="marquee-item">Energy</span>
-    <span class="marquee-item">Education</span>
-    <span class="marquee-item">Trading</span>
-    <span class="marquee-item">Real Estate</span>
-    <span class="marquee-item">Construction & Industrial</span>
-    <span class="marquee-item">Food Industry</span>
-    <span class="marquee-item">Service</span>
-    <span class="marquee-item">Investment</span>
-    <span class="marquee-item">Energy</span>
-    <span class="marquee-item">Education</span>
-    <span class="marquee-item">Trading</span>
-    <span class="marquee-item">Real Estate</span>
-    <span class="marquee-item">Construction & Industrial</span>
-    <span class="marquee-item">Food Industry</span>
+    <span class="marquee-item" data-i18n="sector_service">Service</span>
+    <span class="marquee-item" data-i18n="sector_investment">Investment</span>
+    <span class="marquee-item" data-i18n="sector_energy">Energy</span>
+    <span class="marquee-item" data-i18n="sector_education">Education</span>
+    <span class="marquee-item" data-i18n="sector_trading">Trading</span>
+    <span class="marquee-item" data-i18n="sector_realestate">Real Estate</span>
+    <span class="marquee-item" data-i18n="sector_construction">Construction & Industrial</span>
+    <span class="marquee-item" data-i18n="sector_food">Food Industry</span>
+    <span class="marquee-item" data-i18n="sector_service">Service</span>
+    <span class="marquee-item" data-i18n="sector_investment">Investment</span>
+    <span class="marquee-item" data-i18n="sector_energy">Energy</span>
+    <span class="marquee-item" data-i18n="sector_education">Education</span>
+    <span class="marquee-item" data-i18n="sector_trading">Trading</span>
+    <span class="marquee-item" data-i18n="sector_realestate">Real Estate</span>
+    <span class="marquee-item" data-i18n="sector_construction">Construction & Industrial</span>
+    <span class="marquee-item" data-i18n="sector_food">Food Industry</span>
   </div>
 </div>
 
@@ -641,34 +687,31 @@
     </div>
   </div>
   <div class="about-content fade-up" style="transition-delay:0.1s">
-    <span class="section-tag">Who We Are</span>
-    <h2 class="section-title">A Legacy of <strong>Excellence</strong></h2>
-    <p class="about-body">
-      Halabja Group was founded with a single vision: to be the most trusted partner in the development of Kurdistan's infrastructure and economy. Over two decades, we have grown from a regional contractor into a diversified enterprise with operations spanning construction, petroleum, and international trade.
-    </p>
-    <p class="about-body">
-      Headquartered in Halabja — a city defined by resilience and rebirth — we carry that spirit in everything we build, every contract we honor, and every community we serve.
+    <span class="section-tag" data-i18n="about_eyebrow">Who We Are</span>
+    <h2 class="section-title"><span data-i18n="about_h1">A Legacy of</span> <strong data-i18n="about_h2">Trust &amp; Growth</strong></h2>
+    <p class="about-body" data-i18n="about_body">
+      Founded in Halabja in 1992, Halabja Group has grown from a single trading company into one of Kurdistan's most diversified conglomerates. With 23 subsidiaries spanning eight sectors, we are committed to the reconstruction and sustainable development of Iraq.
     </p>
     <div class="about-values">
       <div class="value-item">
         <div class="value-icon">◆</div>
-        <div class="value-name">Integrity</div>
-        <div class="value-desc">Transparent dealings and unwavering commitment to every promise made.</div>
+        <div class="value-name" data-i18n="about_val1_title">Integrity</div>
+        <div class="value-desc" data-i18n="about_val1_body">Transparent dealings and commitment to every promise.</div>
       </div>
       <div class="value-item">
         <div class="value-icon">◈</div>
-        <div class="value-name">Precision</div>
-        <div class="value-desc">Engineering rigor and attention to detail in every project we undertake.</div>
+        <div class="value-name" data-i18n="about_val2_title">Excellence</div>
+        <div class="value-desc" data-i18n="about_val2_body">Consistently elevating quality across all sectors.</div>
       </div>
       <div class="value-item">
         <div class="value-icon">◉</div>
-        <div class="value-name">Sustainability</div>
-        <div class="value-desc">Building for the long term — for our clients and our environment.</div>
+        <div class="value-name" data-i18n="about_val3_title">Sustainability</div>
+        <div class="value-desc" data-i18n="about_val3_body">Building for the long-term — our clients, our community.</div>
       </div>
       <div class="value-item">
         <div class="value-icon">◐</div>
-        <div class="value-name">Innovation</div>
-        <div class="value-desc">Modern methods and forward-thinking solutions to complex challenges.</div>
+        <div class="value-name" data-i18n="about_val4_title">Community</div>
+        <div class="value-desc" data-i18n="about_val4_body">Supporting local talent and generating job opportunities.</div>
       </div>
     </div>
   </div>
@@ -678,10 +721,10 @@
 <section id="news">
   <div class="news-header fade-up">
     <div>
-      <span class="section-tag">Latest Updates</span>
-      <h2 class="section-title">Latest <strong>News</strong></h2>
+      <span class="section-tag" data-i18n="news_eyebrow">Latest Updates</span>
+      <h2 class="section-title"><span data-i18n="news_h1">News &</span> <strong data-i18n="news_h2">Announcements</strong></h2>
     </div>
-    <a href="news.html" class="btn-outline">View All →</a>
+    <a href="news.html" class="btn-outline" data-i18n="news_viewall">View All →</a>
   </div>
   <div class="news-ticker-wrap">
     <div class="news-ticker" id="newsTicker">
@@ -734,36 +777,36 @@
 <section id="branches">
   <div class="branches-inner">
     <div class="branches-left fade-up">
-      <span class="section-tag">Our Presence</span>
-      <h2 class="section-title" style="color:white;">Where We <strong>Operate</strong></h2>
-      <p class="branches-desc">From Iraq to the UAE, China, and Turkey — we are where our clients need us most.</p>
+      <span class="section-tag" data-i18n="branches_eyebrow">Our Presence</span>
+      <h2 class="section-title" style="color:white;"><span data-i18n="branches_h1">Where We</span> <strong data-i18n="branches_h2">Operate</strong></h2>
+      <p class="branches-desc" data-i18n="branches_desc">From Iraq to the UAE, China, and Turkey — we are where our clients need us most.</p>
       <div class="branch-list">
         <div class="branch-item active" data-loc="iraq">
           <div class="branch-dot"></div>
           <div>
-            <div class="branch-name">Iraq, Sulaymaniyah</div>
+            <div class="branch-name" data-i18n="branch_iraq">Iraq, Sulaymaniyah</div>
             <div class="branch-sub">info@halabjagroup.com · +9647501140100</div>
           </div>
         </div>
         <div class="branch-item" data-loc="uae">
           <div class="branch-dot"></div>
           <div>
-            <div class="branch-name">United Arab Emirates, Dubai</div>
-            <div class="branch-sub">dubai_opm@halabjagroup.com · 00971 50 6258728</div>
+            <div class="branch-name" data-i18n="branch_uae">United Arab Emirates, Dubai</div>
+            <div class="branch-sub" data-i18n="branch_uae_sub">Dubai — Trading Office</div>
           </div>
         </div>
         <div class="branch-item" data-loc="china">
           <div class="branch-dot"></div>
           <div>
-            <div class="branch-name">China, Zhejiang, Yiwu</div>
-            <div class="branch-sub">info@halabjagroup.com · 0086 132 4848 0055</div>
+            <div class="branch-name" data-i18n="branch_china">China, Zhejiang, Yiwu</div>
+            <div class="branch-sub" data-i18n="branch_china_sub">Yiwu — Sourcing Office</div>
           </div>
         </div>
         <div class="branch-item" data-loc="turkey">
           <div class="branch-dot"></div>
           <div>
-            <div class="branch-name">Turkey, Istanbul</div>
-            <div class="branch-sub">turkey_acc@halabjagroup.com · 0090 535 017 7735</div>
+            <div class="branch-name" data-i18n="branch_turkey">Turkey, Istanbul</div>
+            <div class="branch-sub" data-i18n="branch_turkey_sub">Istanbul — Regional Office</div>
           </div>
         </div>
       </div>
@@ -800,7 +843,7 @@
 <footer>
   <div class="footer-main">
     <div class="footer-col">
-      <h4>Navigate</h4>
+      <h4 data-i18n="footer_nav">Navigate</h4>
       <ul>
         <li><a href="news.html">News ↗</a></li>
         <li><a href="#">Home ↗</a></li>
@@ -812,7 +855,7 @@
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Sectors</h4>
+      <h4 data-i18n="footer_sectors">Sectors</h4>
       <ul>
         <li><a href="#">Service ↗</a></li>
         <li><a href="#">Investment ↗</a></li>
@@ -825,7 +868,7 @@
       </ul>
     </div>
     <div class="footer-col footer-col--wide">
-      <h4>Subsidiary Brands</h4>
+      <h4 data-i18n="footer_brands">Subsidiary Brands</h4>
       <div class="footer-brands-grid">
         <ul>
           <li><a href="#">Garden City ↗</a></li>
@@ -857,7 +900,7 @@
         <span class="nav-logo-sub" style="color:rgba(41,69,126,0.6);">Trust the Expertise</span>
       </div>
     </a>
-    <p>© 2026 Halabja Group. All rights reserved.</p>
+    <p data-i18n="footer_copy">© 2026 Halabja Group. All rights reserved.</p>
   </div>
 </footer>
 

@@ -273,7 +273,33 @@
     .delay-1 { transition-delay: 0.1s; }
     .delay-2 { transition-delay: 0.2s; }
     .delay-3 { transition-delay: 0.3s; }
+
+    /* ── LANGUAGE SWITCHER ── */
+    .lang-switcher { display: flex; gap: 3px; align-items: center; margin-left: 16px; }
+    .lang-btn { background: none; border: 1px solid rgba(13,31,61,0.3); color: rgba(13,31,61,0.6); font-size: 10px; letter-spacing: 0.05em; padding: 5px 9px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+    .lang-btn:hover, .lang-btn.active { background: var(--red); border-color: var(--red); color: white; }
+    @media (max-width: 900px) { .lang-switcher { display: none; } }
+
+    /* ── RTL OVERRIDES ── */
+    [dir="rtl"] { font-family: 'Noto Sans Arabic', 'Helvetica Neue', Arial, sans-serif; }
+    [dir="rtl"] nav { flex-direction: row-reverse; }
+    [dir="rtl"] .nav-links { flex-direction: row-reverse; }
+    [dir="rtl"] .hero-content { text-align: right; }
+    [dir="rtl"] .hero-eyebrow { flex-direction: row-reverse; }
+    [dir="rtl"] .hero h1 { letter-spacing: 0; }
+    [dir="rtl"] .stats-section { direction: rtl; }
+    [dir="rtl"] .chairman-inner { flex-direction: row-reverse; }
+    [dir="rtl"] .chairman-text-col { text-align: right; }
+    [dir="rtl"] .section-eyebrow { flex-direction: row-reverse; }
+    [dir="rtl"] .chairman-quote-block { text-align: right; border-left: none; border-right: 3px solid var(--red); padding-left: 0; padding-right: 24px; }
+    [dir="rtl"] .values-header-row { flex-direction: row-reverse; }
+    [dir="rtl"] .values-header-desc { text-align: right; }
+    [dir="rtl"] .value-card { direction: rtl; text-align: right; }
+    [dir="rtl"] .cta-section { text-align: center; }
+    [dir="rtl"] .page-footer { flex-direction: row-reverse; }
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <script src="lang.js" defer></script>
 </head>
 <body>
 
@@ -283,16 +309,21 @@
     <img src="logos/halabja-logo-blue.svg" alt="Halabja Group" />
     <div class="nav-logo-text">
       <span class="nav-logo-name">Halabja Group</span>
-      <span class="nav-logo-sub">Trust the Expertise</span>
+      <span class="nav-logo-sub" data-i18n="nav_tagline">Trust the Expertise</span>
     </div>
   </a>
   <ul class="nav-links">
-    <li><a href="about.html" class="active">About</a></li>
-    <li><a href="index.html#companies">Companies</a></li>
-    <li><a href="index.html#news">News</a></li>
-    <li><a href="index.html#branches">Branches</a></li>
+    <li><a href="about.html" class="active" data-i18n="nav_about">About</a></li>
+    <li><a href="companies.html" data-i18n="nav_companies">Companies</a></li>
+    <li><a href="news.html" data-i18n="nav_news">News</a></li>
+    <li><a href="index.html#branches" data-i18n="nav_branches">Branches</a></li>
   </ul>
-  <a href="careers.html" class="nav-cta">Careers</a>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" data-lang="ku" onclick="setLang('ku')">کوردی</button>
+    <button class="lang-btn" data-lang="ar" onclick="setLang('ar')">عربي</button>
+  </div>
+  <a href="careers.html" class="nav-cta" data-i18n="nav_careers">Careers</a>
   <button class="hamburger"><span></span><span></span><span></span></button>
 </nav>
 
@@ -304,15 +335,15 @@
   <div class="hero-content">
     <div class="hero-eyebrow reveal">
       <div class="hero-eyebrow-line"></div>
-      <span>Halabja Group · Est. 1980s</span>
+      <span data-i18n="ap_eyebrow">Halabja Group · Est. 1992</span>
     </div>
     <h1 class="reveal delay-1">
-      Built on<br>Trust.<br><strong><em>Driven</em> by<br>Expertise.</strong>
+      <span data-i18n="ap_h1a">Built on</span><br><span data-i18n="ap_h1b">Trust.</span><br><strong><em data-i18n="ap_h1c">Driven</em> <span data-i18n="ap_h1d">by Expertise.</span></strong>
     </h1>
-    <p class="hero-desc reveal delay-2">A diversified enterprise spanning eight sectors and four countries — committed to the reconstruction and development of Kurdistan and Iraq.</p>
+    <p class="hero-desc reveal delay-2" data-i18n="footer_desc">A diversified enterprise spanning eight sectors and four countries — committed to the reconstruction and development of Kurdistan and Iraq.</p>
     <div class="hero-scroll-hint reveal delay-3">
       <div class="scroll-line"></div>
-      <span>Scroll to explore</span>
+      <span data-i18n="ap_scroll">Scroll to explore</span>
     </div>
   </div>
 </section>
@@ -321,19 +352,19 @@
 <div class="stats-section">
   <div class="stat-cell reveal">
     <div class="stat-num"><span class="count" data-target="35">0</span><span class="stat-suffix">+</span></div>
-    <div class="stat-label">Years Active</div>
+    <div class="stat-label" data-i18n="ap_stat1_l">Years Active</div>
   </div>
   <div class="stat-cell reveal delay-1">
     <div class="stat-num"><span class="count" data-target="8">0</span></div>
-    <div class="stat-label">Sectors</div>
+    <div class="stat-label" data-i18n="ap_stat2_l">Sectors</div>
   </div>
   <div class="stat-cell reveal delay-2">
     <div class="stat-num"><span class="count" data-target="500">0</span><span class="stat-suffix">+</span></div>
-    <div class="stat-label">Employees</div>
+    <div class="stat-label" data-i18n="ap_stat3_l">Employees</div>
   </div>
   <div class="stat-cell reveal delay-3">
     <div class="stat-num"><span class="count" data-target="4">0</span></div>
-    <div class="stat-label">Countries</div>
+    <div class="stat-label" data-i18n="ap_stat4_l">Countries</div>
   </div>
 </div>
 
@@ -347,8 +378,8 @@
         </div>
         <div class="chairman-nameplate">
           <div>
-            <div class="chairman-nameplate-name">Aso Bamoki</div>
-            <div class="chairman-nameplate-role">Chairman, Halabja Group</div>
+            <div class="chairman-nameplate-name" data-i18n="ap_msg_name">Aso Bamoki</div>
+            <div class="chairman-nameplate-role" data-i18n="ap_msg_title">Chairman, Halabja Group</div>
           </div>
           <div class="chairman-nameplate-icon">
             <img src="logos/halabja-logo-white.svg" alt="" />
@@ -359,18 +390,16 @@
     <div class="chairman-text-col reveal-right">
       <div class="section-eyebrow">
         <div class="section-eyebrow-line"></div>
-        <span>Chairman's Message</span>
+        <span data-i18n="ap_msg_eyebrow">Chairman's Message</span>
       </div>
-      <h2 class="section-heading">A word from<br><strong>Aso Bamoki</strong></h2>
+      <h2 class="section-heading"><span data-i18n="ap_msg_h1">A word from</span><br><strong data-i18n="ap_msg_name">Aso Bamoki</strong></h2>
       <div class="chairman-body">
-        <p>Over the past few decades, Iraq has faced considerable instability and enduring political and economic challenges, which have profoundly impacted the nation's development across all spheres of life. As an esteemed entity, we take great pride in being part of the ongoing efforts for the reconstruction and restoration of Kurdistan and Iraq, following prolonged periods of instability and devastation.</p>
-        <p>Our journey originated with the establishment of Halabja Group for Trading in the late 1980s. Since then, driven by unwavering dedication, we have expanded our scope beyond the trading sector, venturing into a diverse range of industries — spanning the industrial, construction, real estate, telecommunication, education, and retail sectors, all unified under the banner of Halabja Group.</p>
-        <p>At the heart of our mission lies an unwavering commitment to serving our customers and stakeholders with utmost dedication and fidelity, while consistently elevating the quality of our products to meet the highest standards. We firmly believe that knowledge serves as the key to greater success, building trust among the people, and propelling the country's development in the most efficient and effective manner.</p>
+        <p data-i18n="ap_msg_body1">Since our founding in Halabja in 1992, we have been driven by a singular mission: to contribute to the prosperity and development of our people and our homeland.</p>
+        <p data-i18n="ap_msg_body2">Our overarching vision is to contribute to a better country, thriving on sustainable progress and lasting prosperity — for both current and future generations.</p>
         <div class="chairman-quote-block">
-          <blockquote>"Our goal is to be a trusted provider of services and businesses that support the country's economic growth and development. By providing cutting-edge technology, creating job opportunities, and supporting local talent, we intend to leverage our expertise, resources, and strengths to improve the lives of citizens."</blockquote>
-          <cite>— Aso Bamoki, Chairman · Halabja Group</cite>
+          <blockquote data-i18n="ap_msg_quote">"Our goal is to be a trusted provider of services and businesses that support the country's economic growth and development. By providing cutting-edge technology, creating job opportunities, and supporting local talent, we intend to leverage our expertise, resources, and strengths to improve the lives of citizens."</blockquote>
+          <cite data-i18n="ap_msg_attr">— Aso Bamoki, Chairman · Halabja Group</cite>
         </div>
-        <p>Our overarching vision is to contribute to a better country, thriving on sustainable progress and lasting prosperity — for both current and future generations.</p>
       </div>
     </div>
   </div>
@@ -382,11 +411,11 @@
     <div>
       <div class="section-eyebrow reveal">
         <div class="section-eyebrow-line" style="background:rgba(255,255,255,0.3)"></div>
-        <span style="color:rgba(255,255,255,0.4)">Our Journey</span>
+        <span style="color:rgba(255,255,255,0.4)" data-i18n="ap_timeline_eyebrow">Our Journey</span>
       </div>
-      <h2 class="section-heading reveal delay-1" style="color:white;">Milestones &amp;<br><strong>Subsidiaries</strong></h2>
+      <h2 class="section-heading reveal delay-1" style="color:white;"><span data-i18n="ap_timeline_h1">Milestones &amp;</span><br><strong data-i18n="ap_timeline_h2">Subsidiaries</strong></h2>
     </div>
-    <div class="timeline-count reveal">12 companies · drag to explore →</div>
+    <div class="timeline-count reveal" data-i18n="ap_timeline_drag">12 companies · drag to explore →</div>
   </div>
   <div class="timeline-scroll-wrap" id="tlScroll">
     <div class="timeline-track">
@@ -499,43 +528,43 @@
       <div class="reveal-left">
         <div class="section-eyebrow" style="margin-bottom:20px">
           <div class="section-eyebrow-line"></div>
-          <span>Our Foundation</span>
+          <span data-i18n="ap_values_eyebrow">Our Foundation</span>
         </div>
-        <h2 class="section-heading">What We<br><strong>Stand For</strong></h2>
+        <h2 class="section-heading"><span data-i18n="ap_values_h1">What We</span><br><strong data-i18n="ap_values_h2">Stand For</strong></h2>
       </div>
-      <p class="values-header-desc reveal-right">Our values are not words on a wall — they are the principles that guide every decision, every project, and every relationship we build across our eight sectors.</p>
+      <p class="values-header-desc reveal-right" data-i18n="ap_values_desc">Our values are not words on a wall — they are the principles that guide every decision, every project, and every relationship we build across our eight sectors.</p>
     </div>
     <div class="values-grid">
       <div class="value-card reveal">
         <div class="value-card-inner">
-          <span class="value-num">01</span>
+          <span class="value-num" data-i18n="ap_val1_n">01</span>
           <span class="value-icon">◆</span>
-          <div class="value-name">Integrity</div>
-          <div class="value-desc">Transparent dealings and unwavering commitment to every promise made to our clients and partners.</div>
+          <div class="value-name" data-i18n="ap_val1_t">Integrity</div>
+          <div class="value-desc" data-i18n="ap_val1_b">Transparent dealings and unwavering commitment to every promise made to our clients and partners.</div>
         </div>
       </div>
       <div class="value-card reveal delay-1">
         <div class="value-card-inner">
-          <span class="value-num">02</span>
+          <span class="value-num" data-i18n="ap_val2_n">02</span>
           <span class="value-icon">◈</span>
-          <div class="value-name">Excellence</div>
-          <div class="value-desc">Consistently elevating the quality of our products and services to meet the highest standards.</div>
+          <div class="value-name" data-i18n="ap_val2_t">Excellence</div>
+          <div class="value-desc" data-i18n="ap_val2_b">Consistently elevating the quality of our products and services to meet the highest standards.</div>
         </div>
       </div>
       <div class="value-card reveal delay-2">
         <div class="value-card-inner">
-          <span class="value-num">03</span>
+          <span class="value-num" data-i18n="ap_val3_n">03</span>
           <span class="value-icon">◉</span>
-          <div class="value-name">Sustainability</div>
-          <div class="value-desc">Building for the long term — for our clients, our communities, and our environment.</div>
+          <div class="value-name" data-i18n="ap_val3_t">Sustainability</div>
+          <div class="value-desc" data-i18n="ap_val3_b">Building for the long term — for our clients, our communities, and our environment.</div>
         </div>
       </div>
       <div class="value-card reveal delay-3">
         <div class="value-card-inner">
-          <span class="value-num">04</span>
+          <span class="value-num" data-i18n="ap_val4_n">04</span>
           <span class="value-icon">◐</span>
-          <div class="value-name">Community</div>
-          <div class="value-desc">Supporting local talent and generating ample job opportunities for our fellow citizens.</div>
+          <div class="value-name" data-i18n="ap_val4_t">Community</div>
+          <div class="value-desc" data-i18n="ap_val4_b">Supporting local talent and generating ample job opportunities for our fellow citizens.</div>
         </div>
       </div>
     </div>
@@ -545,10 +574,10 @@
 <!-- CTA -->
 <section class="cta-section">
   <div class="reveal">
-    <h2>Join the<br><strong>Halabja Group</strong> team</h2>
-    <p>We are always looking for talented, driven individuals to grow with us.</p>
+    <h2><span data-i18n="ap_cta_h1">Join the</span><br><strong data-i18n="ap_cta_h2">Halabja Group</strong> <span data-i18n="ap_cta_h3">team</span></h2>
+    <p data-i18n="ap_cta_sub">We are always looking for talented, driven individuals to grow with us.</p>
   </div>
-  <a href="careers.html" class="btn-outline-white reveal delay-1">View Open Positions →</a>
+  <a href="careers.html" class="btn-outline-white reveal delay-1" data-i18n="ap_cta_btn">View Open Positions →</a>
 </section>
 
 <!-- FOOTER -->
@@ -557,11 +586,11 @@
     <img src="logos/halabja-logo-blue.svg" style="height:26px;" alt="" />
     <div class="nav-logo-text">
       <span class="nav-logo-name" style="color:#0D1F3D;font-size:12px;">Halabja Group</span>
-      <span class="nav-logo-sub" style="color:rgba(41,69,126,0.5);">Trust the Expertise</span>
+      <span class="nav-logo-sub" style="color:rgba(41,69,126,0.5);" data-i18n="nav_tagline">Trust the Expertise</span>
     </div>
   </a>
-  <p>© 2026 Halabja Group. All rights reserved.</p>
-  <a href="index.html">← Back to main site</a>
+  <p data-i18n="footer_copy">© 2026 Halabja Group. All rights reserved.</p>
+  <a href="index.html" data-i18n="back_main">← Back to main site</a>
 </div>
 
 <script>
