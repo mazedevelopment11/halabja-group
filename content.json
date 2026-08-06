@@ -1,0 +1,179 @@
+{
+  "hero": {
+    "headline": "Trust the",
+    "headline_accent": "Expertise",
+    "subtext": "A diversified group operating across construction, petroleum, and trading — delivering infrastructure, energy, and commerce that powers the region.",
+    "stat1_number": "35+",
+    "stat1_label": "Years of Experience",
+    "stat2_number": "150+",
+    "stat2_label": "Projects Completed",
+    "stat3_number": "8",
+    "stat3_label": "Core Sectors",
+    "stat4_number": "500+",
+    "stat4_label": "Skilled Employees"
+  },
+  "news": [
+    {
+      "id": "1",
+      "title": "Halabja Group Inaugurates New Facility with Senior Officials",
+      "date": "Jun 2024",
+      "category": "Event",
+      "image": "assets/news/news-1.jpg",
+      "excerpt": "In a landmark ceremony attended by senior government officials and regional leaders, Halabja Group officially opened its latest industrial facility in the Kurdistan Region."
+    },
+    {
+      "id": "2",
+      "title": "New Professionals Join the Growing Halabja Group Team",
+      "date": "May 2024",
+      "category": "People",
+      "image": "assets/news/news-3.jpg",
+      "excerpt": "Halabja Group welcomed a cohort of experienced engineers, managers, and specialists to support its expanding operations across eight sectors."
+    },
+    {
+      "id": "3",
+      "title": "Major Project Launch Ceremony in Kurdistan Region",
+      "date": "Apr 2024",
+      "category": "Project",
+      "image": "assets/news/news-2.jpg",
+      "excerpt": "A high-profile groundbreaking ceremony marked the start of construction on a new infrastructure corridor, backed by Halabja Group subsidiaries."
+    },
+    {
+      "id": "4",
+      "title": "Halabja Group Expands Operations Across New Sectors",
+      "date": "Feb 2024",
+      "category": "Corporate",
+      "image": "assets/news/news-5.jpg",
+      "excerpt": "The group announced strategic expansions into food industry and renewable energy, reinforcing its position as Kurdistan's most diversified conglomerate."
+    },
+    {
+      "id": "5",
+      "title": "Strategic Infrastructure Development Underway in Halabja",
+      "date": "Jan 2024",
+      "category": "Infrastructure",
+      "image": "assets/news/news-3.jpg",
+      "excerpt": "Aran Asphalt and Halabja for General Contracting have jointly commenced work on a critical road network linking key industrial zones in the region."
+    },
+    {
+      "id": "6",
+      "title": "Annual Group Summit Brings Leaders Together",
+      "date": "Dec 2023",
+      "category": "Event",
+      "image": "assets/news/news-4.webp",
+      "excerpt": "Halabja Group hosted its annual leadership summit, bringing together the CEOs and directors of all 23 subsidiaries to align on strategy for the year ahead."
+    },
+    {
+      "id": "7",
+      "title": "Rasan Olive Oil Opens New Cold-Press Plant",
+      "date": "Oct 2023",
+      "category": "Project",
+      "image": "assets/news/news-6.webp",
+      "excerpt": "Rasan Olive Oil celebrated the commissioning of its expanded production facility, doubling capacity to meet growing domestic and export demand."
+    },
+    {
+      "id": "8",
+      "title": "Halabja Group Celebrates 30 Years of Excellence",
+      "date": "Aug 2023",
+      "category": "Corporate",
+      "image": "assets/news/news-1.jpg",
+      "excerpt": "Marking three decades since Halabja Trading's founding in 1992, the group commemorated its journey from a single trading company to a diversified enterprise."
+    },
+    {
+      "id": "9",
+      "title": "Ishtar Brick Factory Begins Full Production",
+      "date": "Mar 2023",
+      "category": "Infrastructure",
+      "image": "assets/news/news-2.jpg",
+      "excerpt": "Ishtar Brick Factory reached full operational capacity, supplying millions of premium bricks monthly to construction projects across the Kurdistan Region."
+    }
+  ],
+  "jobs": [
+    {
+      "id": "1",
+      "title": "Senior Civil Engineer",
+      "sector": "Construction",
+      "location": "Sulaymaniyah, Iraq",
+      "type": "Full-time",
+      "skills": ["AutoCAD", "Structural Analysis", "Project Management"],
+      "description": "Lead engineering design and supervision for large-scale infrastructure projects across the Kurdistan Region."
+    },
+    {
+      "id": "2",
+      "title": "Financial Controller",
+      "sector": "Admin",
+      "location": "Sulaymaniyah, Iraq",
+      "type": "Full-time",
+      "skills": ["IFRS", "Financial Reporting", "ERP Systems"],
+      "description": "Oversee financial reporting, budgeting, and compliance across group subsidiaries."
+    },
+    {
+      "id": "3",
+      "title": "Energy Trading Analyst",
+      "sector": "Energy",
+      "location": "Sulaymaniyah, Iraq",
+      "type": "Full-time",
+      "skills": ["Market Analysis", "Excel", "Energy Markets"],
+      "description": "Analyze petroleum markets and support trading decisions for Halabja Energy operations."
+    },
+    {
+      "id": "4",
+      "title": "Real Estate Project Manager",
+      "sector": "Real Estate",
+      "location": "Sulaymaniyah, Iraq",
+      "type": "Full-time",
+      "skills": ["Project Management", "Real Estate Law", "MS Project"],
+      "description": "Manage residential and commercial development projects from acquisition through delivery."
+    },
+    {
+      "id": "5",
+      "title": "Montessori Teacher",
+      "sector": "Education",
+      "location": "Sulaymaniyah, Iraq",
+      "type": "Full-time",
+      "skills": ["Montessori Certification", "Early Childhood Education", "Arabic or English"],
+      "description": "Deliver world-class Montessori education to students aged 3–6 at our international school."
+    },
+    {
+      "id": "6",
+      "title": "Import & Logistics Coordinator",
+      "sector": "Trading",
+      "location": "Dubai, UAE",
+      "type": "Full-time",
+      "skills": ["Customs Clearance", "Freight Forwarding", "ERP"],
+      "description": "Coordinate international shipments and customs clearance for Halabja Trading's global supply chain."
+    }
+  ],
+  "branches": [
+    {
+      "id": "iraq",
+      "country": "Iraq",
+      "city": "Sulaymaniyah",
+      "address": "Halabja Group HQ, Sulaymaniyah, Kurdistan Region",
+      "email": "iraq@halabjagroup.com",
+      "phone": "+964 770 000 0001"
+    },
+    {
+      "id": "uae",
+      "country": "UAE",
+      "city": "Dubai",
+      "address": "Dubai Trade Centre District, Dubai, UAE",
+      "email": "uae@halabjagroup.com",
+      "phone": "+971 4 000 0001"
+    },
+    {
+      "id": "china",
+      "country": "China",
+      "city": "Yiwu",
+      "address": "Yiwu International Trade City, Zhejiang, China",
+      "email": "china@halabjagroup.com",
+      "phone": "+86 579 0000 0001"
+    },
+    {
+      "id": "turkey",
+      "country": "Turkey",
+      "city": "Istanbul",
+      "address": "Levent Business District, Istanbul, Turkey",
+      "email": "turkey@halabjagroup.com",
+      "phone": "+90 212 000 0001"
+    }
+  ]
+}
