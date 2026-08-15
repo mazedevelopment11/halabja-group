@@ -125,6 +125,8 @@
   }
   .company-card:hover .card-logo-panel img { opacity: 1; transform: scale(1.06); }
   .card-logo-panel img.logo-wide { max-height: 240px; max-width: 92%; }
+  .card-logo-panel.light-panel { background: rgba(255,255,255,0.95); border-radius: 6px 6px 0 0; }
+  .card-logo-panel.light-panel img { filter: none; opacity: 1; }
   .card-logo-name {
     font-size: 20px; font-weight: 900; color: #fff; letter-spacing: -0.01em; text-align: center;
   }
@@ -402,7 +404,7 @@
     </div>
 
     <div class="company-card" data-sector="education">
-      <div class="card-logo-panel"><img src="logos/companies/komar-university.svg" alt="Komar University of Science &amp; Technology"/></div>
+      <div class="card-logo-panel light-panel"><img src="logos/companies/komar-university.svg" alt="Komar University of Science &amp; Technology"/></div>
       <div class="card-info">
         <div class="company-sector-tag">Education</div>
         <div class="company-name">Komar University of Science &amp; Technology</div>
